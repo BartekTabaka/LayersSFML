@@ -1,0 +1,20 @@
+# Visual Studio
+.vs/
+*.suo
+*.user
+*.VC.db
+*.ipch
+*.pdb
+
+# Build
+build/
+Debug/
+Release/
+
+# SFML / binarki
+*.exe
+*.dll
+
+# system
+Thumbs.db
+*.log

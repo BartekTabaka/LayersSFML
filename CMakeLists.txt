@@ -15,6 +15,6 @@ FetchContent_Declare(
 
 FetchContent_MakeAvailable(SFML)
 
-add_executable(LayersSFML src/main.cpp)
+add_executable(LayersSFML src/main.cpp src/Layer.cpp)
 
 target_link_libraries(LayersSFML PRIVATE sfml-graphics sfml-window sfml-system)

@@ -1,8 +1,33 @@
 #include <SFML/Graphics.hpp>
+#include "Layer.h"
+#include <string>
+
+struct WindowSpecification
+{
+	std::string Title = "Layers SFML";
+	uint32_t Width = 1280;
+	uint32_t Height = 720;
+	uint32_t Style = sf::Style::Default;
+};
+struct ApplicationSpecification
+{
+	std::string Name = "Application";
+	WindowSpecification windowSpec;
+};
+
+class Application {
+public:
+	Application(const ApplicationSpecification& appSpec = ApplicationSpecification());
+
+	void Run();
+	void Stop();
+private:
+	ApplicationSpecification m_Specification;
+};
 
 int main()
 {
-	sf::RenderWindow window(sf::VideoMode({1280, 720}), "SFML works!");
+	sf::RenderWindow window(sf::VideoMode({ 1280, 720 }), "SFML works!");
 	
 	sf::Texture texture("assets/Textures/logo.png");
 	sf::Sprite sprite(texture);

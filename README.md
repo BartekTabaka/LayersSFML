@@ -31,7 +31,7 @@ Git + GitHub działa jak "magiczny pendrive w chmurze":
 ### 2. Praca w szkole
 1. Na szkolnym komputerze:
     ```bash
-    git clone https://github.com/TWOJA_NAZWA/LayersSFML.git
+    git clone https://github.com/BartekTabaka/LayersSFML.git
     ```
     Lub jeśli już masz projekt:
     ```bash

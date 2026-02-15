@@ -51,6 +51,7 @@ private:
 	ApplicationSpecification m_Specification;
 	std::vector<std::unique_ptr<Layer>> m_LayerStack;
 	
+	friend class Layer;
 };
 
 int main()

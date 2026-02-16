@@ -1,4 +1,5 @@
 #include "Layer.h"
+#include "Application.h"
 
 #include <SFML/Graphics.hpp>
 
@@ -9,50 +10,6 @@
 #include <functional>
 #include <memory>
 #include <print>
-
-struct WindowSpecification		//Window Properties
-{
-	std::string Title = "Layers SFML";
-	uint32_t Width = 1280;
-	uint32_t Height = 720;
-	uint32_t Style = sf::Style::Default;
-};
-struct ApplicationSpecification	//Application Properties (Window specification included)
-{
-	std::string Name = "Application";
-	WindowSpecification windowSpec;
-};
-
-class Application {
-public:
-	//Class constructor with default parameters - leave blank for deafult specification or specify name and window specification
-	Application(const ApplicationSpecification& appSpec = ApplicationSpecification());
-	//Application(const std::string& name, const WindowSpecification& windowSpec = WindowSpecification());
-
-	void Run();
-	void Stop();
-
-	//Dodawanie nowej warstwy do aplikacji
-	template<std::derived_from<Layer> TLayer>
-	void PushLayer() {
-		m_LayerStack.push_back(std::make_unique<TLayer>);
-	}
-
-	template<std::derived_from<Layer> TLayer>
-	TLayer* GetLayer() {
-		for (const auto& layer : m_LayerStack) {
-			if (auto casted = dynamic_cast<TLayer*>(layer.get())) {
-				return casted;
-			}
-		}
-		return nullptr;
-	}
-private:
-	ApplicationSpecification m_Specification;
-	std::vector<std::unique_ptr<Layer>> m_LayerStack;
-	
-	friend class Layer;
-};
 
 int main()
 {

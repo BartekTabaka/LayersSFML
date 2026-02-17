@@ -1,4 +1,5 @@
 #include "Layer.h"
+#include "Window.h"
 
 #include <SFML/Graphics.hpp>
 
@@ -48,9 +49,13 @@ public:
 		}
 		return nullptr;
 	}
+
+	static Application& Get(); //Get Instance
+	static float GetTime();
 private:
 	ApplicationSpecification m_Specification;
 	std::vector<std::unique_ptr<Layer>> m_LayerStack;
+	sf::RenderWindow m_Window;
 
 	friend class Layer;
 };

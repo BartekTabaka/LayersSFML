@@ -13,11 +13,17 @@
 
 int main()
 {
-	sf::ContextSettings settings;
+	/*sf::ContextSettings settings;
 	settings.antiAliasingLevel = 8;
-	sf::RenderWindow window(sf::VideoMode({ 1280, 720 }), "SFML works!", sf::State::Windowed, settings);
+	sf::RenderWindow window(sf::VideoMode({ 1280, 720 }), "SFML works!", sf::State::Windowed, settings);*/
+
+	ApplicationSpecification appSpec;
+	appSpec.Name = "LayersSFML";
 	
-	sf::Texture texture("assets/Textures/logo.png");
+	Application application(appSpec);
+	application.Run();
+	
+	/*sf::Texture texture("assets/Textures/logo.png");
 	//sf::Texture texture("C:/dev/LayersSFML/assets/Textures/logo.png");
 	sf::Sprite sprite(texture);
 	sprite.setOrigin({ texture.getSize().x / 2.f, texture.getSize().y / 2.f });
@@ -44,7 +50,7 @@ int main()
 		window.draw(text);
 
 		window.display();
-	}
+	}*/
 }
 
 ////////////////////////////

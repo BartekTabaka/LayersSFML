@@ -2,6 +2,9 @@
 
 #include <SFML/Graphics.hpp>
 
+using Vec2f = sf::Vector2f;
+using Vec2i = sf::Vector2i;
+
 struct WindowSpecification { // Window properties
 	std::string Title = "Layers SFML";
 	uint32_t Width = 1280;
@@ -13,11 +16,17 @@ struct WindowSpecification { // Window properties
 class Window {
 public:
 	Window(const WindowSpecification& specification);
+	~Window();
+
 	void Create();
 	void Destroy();
 
 	bool IsOpen() const;
 	std::optional<sf::Event> pollEvent();
+	// Get current mouse position inside of the window
+	Vec2f GetMousePosWindow() const; 
+	// Get current global mouse position (on screen)
+	Vec2f GetMousePosScreen() const;
 
 	void Clear(sf::Color clearColor = sf::Color::Black);
 	void Display();

@@ -1,5 +1,6 @@
 #include "Layer.h"
 #include "Application.h"
+#include "AppLayer.h"
 
 #include <SFML/Graphics.hpp>
 
@@ -21,10 +22,11 @@ int main()
 	appSpec.Name = "LayersSFML";
 	
 	Application application(appSpec);
+	application.PushLayer<AppLayer>();   
 	application.Run();
 	
 	/*sf::Texture texture("assets/Textures/logo.png");
-	//sf::Texture texture("C:/dev/LayersSFML/assets/Textures/logo.png");
+	//sf::Texture texture("C:/dev/LayersSFML/assets/Textures/logo.png"); 
 	sf::Sprite sprite(texture);
 	sprite.setOrigin({ texture.getSize().x / 2.f, texture.getSize().y / 2.f });
 	sprite.setPosition({ window.getSize().x / 2.f, window.getSize().y / 2.f - 40 });
@@ -56,6 +58,6 @@ int main()
 ////////////////////////////
 //
 //	TODO:
-//  1. Wyszukiwanie (Application.GetLayer<>();) po nazwie
+//  1. 
 //
 ////////////////////////////

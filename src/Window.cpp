@@ -5,6 +5,10 @@ Window::Window(const WindowSpecification& specification) : m_Specification(speci
 	m_Window.setFramerateLimit(60);
 }
 
+Window::~Window() {
+	Destroy();
+}
+
 void Window::Create() {
 	m_Window.create(
 		sf::VideoMode({ m_Specification.Width, m_Specification.Height }),
@@ -21,14 +25,24 @@ void Window::Destroy() {
 	}
 }
 
-bool Window::IsOpen() const
-{
+bool Window::IsOpen() const {
 	return m_Window.isOpen();
 }
 
-std::optional<sf::Event> Window::pollEvent()
-{
+std::optional<sf::Event> Window::pollEvent() {
 	return m_Window.pollEvent();
+}
+
+Vec2f Window::GetMousePosWindow() const
+{
+	Vec2i mousePos = sf::Mouse::getPosition(m_Window);
+	return static_cast<Vec2f>(mousePos);
+}
+
+Vec2f Window::GetMousePosScreen() const
+{
+	Vec2i mousePos = sf::Mouse::getPosition();
+	return static_cast<Vec2f>(mousePos);
 }
 
 void Window::Clear(sf::Color clearColor) {

@@ -1,6 +1,7 @@
 #include "Layer.h"
 #include "Application.h"
 #include "AppLayer.h"
+#include "Event.h"
 
 #include <SFML/Graphics.hpp>
 

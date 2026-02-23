@@ -33,7 +33,7 @@ public:
 	template<std::derived_from<Layer> TLayer>
 	void PushLayer()
 	{
-		m_LayerStack.push_back(std::make_unique<TLayer>);
+		m_LayerStack.push_back(std::make_unique<TLayer>());
 	}
 
 	//Wydobycie/otrzymanie warstwy z m_LayerStack

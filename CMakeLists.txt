@@ -19,4 +19,8 @@ add_executable(LayersSFML src/main.cpp src/Layer.cpp src/Application.cpp src/Win
 
 target_link_libraries(LayersSFML PRIVATE sfml-graphics sfml-window sfml-system)
 
+set_target_properties(LayersSFML PROPERTIES
+    VS_DEBUGGER_WORKING_DIRECTORY "${CMAKE_SOURCE_DIR}"
+)
+
 set_property(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY VS_STARTUP_PROJECT LayersSFML)

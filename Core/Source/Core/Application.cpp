@@ -53,6 +53,9 @@ namespace Core {
 					}
 				}
 
+				// Handling Layer transitions before updating and rendering
+				HandlePendingLayerTransitions();
+
 				// Updating layers
 				for (const std::unique_ptr<Layer>& layer : m_LayerStack)
 					layer->OnUpdate(dT);

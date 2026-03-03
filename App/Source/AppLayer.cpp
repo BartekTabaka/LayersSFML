@@ -1,5 +1,8 @@
 #include "AppLayer.h"
 #include "Core/Application.h"
+
+#include <random>
+
 AppLayer::AppLayer()
 {
 	m_Name = "AppLayer";
@@ -38,6 +41,17 @@ void AppLayer::OnRender()
 
 bool AppLayer::OnMouseButtonPressed(Core::MouseButtonPressedEvent& event)
 {
-	Core::Application::Get().s_ClearColor = sf::Color::Red;
+	if (event.GetMouseButton() != 0) return true;
+
+	std::random_device rd;
+	std::mt19937 gen(rd());
+	std::uniform_int_distribution<> dist(0, 256);
+
+	uint8_t r = dist(gen);
+	uint8_t g = dist(gen);
+	uint8_t b = dist(gen);
+	sf::Color newColor = { r, g, b, 255 };
+
+	Core::Application::Get().s_ClearColor = newColor;
 	return true;
 }

@@ -26,7 +26,6 @@ target_link_libraries(Core
         sfml-window
         sfml-system
         sfml-audio
-        sfml-network
 )
 
 target_include_directories(Core PUBLIC Source)

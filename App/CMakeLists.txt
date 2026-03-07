@@ -6,6 +6,8 @@ set(SOURCES
     Source/Main.cpp
     Source/AppLayer.h
     Source/AppLayer.cpp
+    Source/OverlayLayer.h
+    Source/OverlayLayer.cpp
     Source/Rendering/RenderObject.h
 )
 

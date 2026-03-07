@@ -2,16 +2,37 @@
 #include "Core/Application.h"
 
 OverlayLayer::OverlayLayer()
-	: txt1("Assets/Textures/logo.png"),
-	  sp1(txt1)
+	: txt("Assets/Textures/logo.png")
 {
 	m_Name = "OverlayLayer";
 
 	m_EventTypesToHandle = {
-		Core::EventType::MouseButtonPressed
+		Core::EventType::MouseButtonPressed,
+		Core::EventType::MouseMoved
 	};
 
-	sp1.setPosition({ 500, 250 });
+	/*auto sprite = std::make_unique<MySprite>(txt);
+	sprite->setScale({ 0.5f, 0.5f });
+
+	m_Objects.push_back(std::move(sprite));*/
+
+	//// Play button
+	//auto playBtn = std::make_unique<Button>(txt, []() {
+	//	std::println("Play!");
+	//});
+	//m_Objects.push_back(std::move(playBtn));
+
+	//// Options button
+	//auto optBtn = std::make_unique<Button>(txt, []() {
+	//	std::println("Options!");
+	//});
+	//optBtn->setPosition({ 600, 200 });
+	//m_Objects.push_back(std::move(optBtn));
+
+	auto playButton = std::make_unique<Button>(txt, []() {
+		std::println("Play button clicked!");
+	});
+	m_Buttons.push_back(std::move(playButton));
 }
 
 void OverlayLayer::OnEvent(Core::Event& event)
@@ -21,6 +42,7 @@ void OverlayLayer::OnEvent(Core::Event& event)
 
 	Core::EventDispatcher dispatcher(event);
 	dispatcher.Dispatch<Core::MouseButtonPressedEvent>([this](Core::MouseButtonPressedEvent& e) { return OnMouseButtonPressed(e); });
+	dispatcher.Dispatch<Core::MouseMovedEvent>([this](Core::MouseMovedEvent& e) { return OnMouseMoved(e); });
 }
 
 void OverlayLayer::OnUpdate(float dT)
@@ -30,22 +52,57 @@ void OverlayLayer::OnUpdate(float dT)
 
 void OverlayLayer::OnRender()
 {
-	Core::Application::Get().GetWindow()->Draw(sp1);
+	auto window = Core::Application::Get().GetWindow();
+	for (auto& obj : m_Objects) {
+		window->Draw(*obj);
+	}
+	for (auto& btn : m_Buttons) {
+		window->Draw(*btn);
+	}
 }
 
 bool OverlayLayer::OnMouseButtonPressed(Core::MouseButtonPressedEvent& event)
 {
-	if (!IsButtonHovered()) return false;
+	if (IsButtonHovered()) {
+		for (auto& btn : m_Buttons) {
+			btn->OnClick();
+		}
+	}
 
 	return true;
 }
 
+bool OverlayLayer::OnMouseMoved(Core::MouseMovedEvent& event)
+{
+	IsButtonHovered();
+
+	return false;
+}
+
 bool OverlayLayer::IsButtonHovered()
 {
-	using Vec2f = sf::Vector2f;
-	Vec2f mousePos = Core::Application::Get().GetWindow()->GetMousePosWindow();
+	for (auto& btn : m_Buttons) {
+		if (btn->IsHovered()) {
+			btn->OnHover();
+			return true;
+		}
+	}
+	return false;
+}
 
-	bool hovered = false;
+RenderObject* OverlayLayer::GetHoveredObject()
+{
+	auto mousePos = Core::Application::Get().GetWindow()->GetMousePosWindow();
+	for (auto it = m_Objects.rbegin(); it != m_Objects.rend(); ++it) {
+		if ((*it)->GetGlobalBounds().contains(mousePos)) {
+			return it->get();
+		}
+	}
 
-	return hovered;
+	return nullptr;
+}
+
+void OverlayLayer::AddObject(std::unique_ptr<RenderObject> obj)
+{
+	m_Objects.push_back(std::move(obj));
 }

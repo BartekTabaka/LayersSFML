@@ -1,64 +1,95 @@
 #pragma once
 
+#include <functional>
+#include <print>
 #include <SFML/Graphics.hpp>
 
-class RenderObject {
-	using Vec2f = sf::Vector2f;
+class RenderObject : public sf::Drawable {
 public:
 	virtual ~RenderObject() = default;
-	virtual void Update(float dT) = 0;
-	virtual void Render(sf::RenderWindow& window) = 0;
+
+	// Transforms
 	virtual sf::FloatRect GetGlobalBounds() const = 0;
 };
 
-class SpriteObject : public RenderObject {
+class MySprite : public RenderObject, public sf::Transformable {
 public:
-	SpriteObject(const sf::Texture& texture)
+	MySprite(const sf::Texture& texture)
 		: m_Sprite(texture)
 	{
-		m_Sprite.setOrigin({ texture.getSize().x / 2.f, texture.getSize().y / 2.f });
 	}
 
-	void Update(float dT) override
+	void SetColor(sf::Color color)
 	{
+		m_Sprite.setColor(color);
 	}
 
-	void Render(sf::RenderWindow& window) override
+	sf::FloatRect GetGlobalBounds() const override
 	{
-		window.draw(m_Sprite);
+		return getTransform().transformRect(m_Sprite.getLocalBounds());
+	}
+private:
+	void draw(sf::RenderTarget& target, sf::RenderStates states) const override
+	{
+		states.transform *= getTransform();
+		target.draw(m_Sprite, states);
 	}
 private:
 	sf::Sprite m_Sprite;
 };
 
-class TextObject : public RenderObject {
+class Button : public RenderObject, public sf::Transformable {
 public:
-	TextObject(const sf::Font& font, const std::string& string, unsigned int characterSize)
-		: m_Text(font, string, characterSize)
+	Button(const sf::Texture& texture, std::function<void()> onClick)
+		: m_Sprite(texture), m_OnClick(std::move(onClick))
 	{
-		m_Text.setOrigin({ m_Text.getLocalBounds().size.x / 2.f, m_Text.getLocalBounds().size.y / 2.f });
+		auto b = m_Sprite.getLocalBounds();
+		m_Sprite.setOrigin({ b.size.x / 2.f, b.size.y / 2.f });
+		m_ScaleBefore = { 1.f, 1.f };
 	}
 
-	void Update(float dT) override
+	void UpdateHover(const sf::Vector2f& mousePos)
 	{
+		bool now = GetGlobalBounds().contains(mousePos);
+
+		if (now && !m_IsHovered) OnHover();
+		else if (!now && m_IsHovered) OnDehover();
+
+		m_IsHovered = now;
 	}
 
-	void Render(sf::RenderWindow& window) override
+	void OnClick()
 	{
-		window.draw(m_Text);
+		if (m_OnClick) m_OnClick();
 	}
-public:
-	float scale = 1.f;
-	float rotation = 0.f;
-	float outlineThickness = 0.f;
-	sf::Color outlineColor = sf::Color::Black;
-	sf::Color color = sf::Color::White;
+
+	sf::FloatRect GetGlobalBounds() const override
+	{
+		return getTransform().transformRect(m_Sprite.getLocalBounds());
+	}
 private:
-	sf::Text m_Text;
-	sf::Font m_Font;
-};
+	void draw(sf::RenderTarget& target, sf::RenderStates states)
+	{
+		states.transform *= getTransform();
+		target.draw(m_Sprite, states);
+	}
 
-class ButtonObject : public RenderObject {
-public:
-	ButtonObject();
+	void OnHover()
+	{
+		m_Sprite.setColor(sf::Color(255, 230, 200)); // lekki tint
+		m_ScaleBefore = getScale();
+		setScale({ m_ScaleBefore.x * 1.12f, m_ScaleBefore.y * 1.12f });
+	}
+
+	void OnDehover()
+	{
+		m_Sprite.setColor(sf::Color::White);
+		m_Sprite.setScale(m_ScaleBefore);
+	}
+private:
+	sf::Sprite m_Sprite;
+
+	bool m_IsHovered = false;
+	std::function<void()> m_OnClick;
+	sf::Vector2f m_ScaleBefore;
 };

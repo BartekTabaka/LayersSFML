@@ -50,13 +50,17 @@ namespace Core {
 						MouseButtonPressedEvent event(pressedButton);
 						RaiseEvent(event);
 					}
+					if (event->is<sf::Event::MouseMoved>()) {
+						sf::Vector2f mousePos = GetWindow()->GetMousePosWindow();
+						MouseMovedEvent event(mousePos);
+						RaiseEvent(event);
+					}
 				}
 
 				// DeltaTime
 				float currentTime = s_RuntimeClock.getElapsedTime().asSeconds();
 				float dT = currentTime - lastTime;
 				lastTime = currentTime;
-				std::println("DeltaTime: {}s", dT);
 
 				// Handling Layer transitions before updating and rendering
 				HandlePendingLayerTransitions();

@@ -1,6 +1,7 @@
 #pragma once
 
 #include <vector>
+#include <memory>
 
 #include "Core/Layer.h"
 #include "Core/InputEvents.h"
@@ -17,11 +18,18 @@ public:
 	virtual void OnRender() override;
 private:
 	bool OnMouseButtonPressed(Core::MouseButtonPressedEvent& event);
+	bool OnMouseMoved(Core::MouseMovedEvent& event);
 private:
 	bool IsButtonHovered();
+	RenderObject* GetHoveredObject();
+	void AddObject(std::unique_ptr<RenderObject> obj);
 private:
-	sf::Texture txt1;
-	sf::Sprite sp1;
+
+	std::vector<std::unique_ptr<RenderObject>> m_Objects;
+	std::vector<std::unique_ptr<Button>> m_Buttons;
+	
+	// Temporary texture, here until I create a resource manager
+	sf::Texture txt;
 
 	float m_Time = 0.0f;
 };

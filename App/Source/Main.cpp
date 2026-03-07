@@ -1,6 +1,7 @@
 #include "Core/Application.h"
 
 #include "AppLayer.h"
+#include "OverlayLayer.h"
 
 int main()
 {
@@ -12,7 +13,8 @@ int main()
 	appSpec.Name = "LayersSFML";
 	
 	Core::Application application(appSpec);
-	application.PushLayer<AppLayer>();   
+	application.PushLayer<AppLayer>();
+	application.PushLayer<OverlayLayer>();
 	application.Run();
 	
 	/*sf::Texture texture("assets/Textures/logo.png");
@@ -49,8 +51,8 @@ int main()
 //
 //	TODO:
 //  1. Stworzenie w³asnych typów eventów
-//  2. Dodanie sprite do AppLayer
-//  3. Dodanie OverlayLayer
+//  2. Naprawienie RUNTIME
+//  3. Uzupe³nienie OverlayLayer
 //  4. Dodanie VoidLayer
 //
 ////////////////////////////

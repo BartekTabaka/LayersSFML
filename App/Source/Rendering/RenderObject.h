@@ -3,10 +3,12 @@
 #include <SFML/Graphics.hpp>
 
 class RenderObject {
+	using Vec2f = sf::Vector2f;
 public:
 	virtual ~RenderObject() = default;
 	virtual void Update(float dT) = 0;
 	virtual void Render(sf::RenderWindow& window) = 0;
+	virtual sf::FloatRect GetGlobalBounds() const = 0;
 };
 
 class SpriteObject : public RenderObject {
@@ -36,9 +38,11 @@ public:
 	{
 		m_Text.setOrigin({ m_Text.getLocalBounds().size.x / 2.f, m_Text.getLocalBounds().size.y / 2.f });
 	}
+
 	void Update(float dT) override
 	{
 	}
+
 	void Render(sf::RenderWindow& window) override
 	{
 		window.draw(m_Text);
@@ -52,4 +56,9 @@ public:
 private:
 	sf::Text m_Text;
 	sf::Font m_Font;
+};
+
+class ButtonObject : public RenderObject {
+public:
+	ButtonObject();
 };

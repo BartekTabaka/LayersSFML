@@ -30,6 +30,7 @@ namespace Core {
 		Vec2f GetMousePosScreen() const;
 
 		void Clear(sf::Color clearColor = sf::Color::Black);
+		void Draw(sf::Drawable& obj);
 		void Display();
 	private:
 		WindowSpecification m_Specification;

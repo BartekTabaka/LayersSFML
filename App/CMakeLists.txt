@@ -1,11 +1,12 @@
 #
-# Ap
+# App
 #
 
 set(SOURCES
     Source/Main.cpp
     Source/AppLayer.h
     Source/AppLayer.cpp
+    Source/Rendering/RenderObject.h
 )
 
 add_executable(App)

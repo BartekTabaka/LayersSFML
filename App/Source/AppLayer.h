@@ -3,6 +3,8 @@
 #include "Core/Layer.h"
 #include "Core/InputEvents.h"
 
+#include "Rendering/RenderObject.h"
+
 #include <print>
 
 class AppLayer : public Core::Layer {

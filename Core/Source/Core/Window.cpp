@@ -1,5 +1,5 @@
 #include "Window.h"
-
+#include <print>
 namespace Core {
 	Window::Window(const WindowSpecification& specification)
 		: m_Specification(specification)
@@ -56,6 +56,11 @@ namespace Core {
 	void Window::Clear(sf::Color clearColor)
 	{
 		m_Window.clear(clearColor);
+	}
+
+	void Window::Draw(sf::Drawable& obj)
+	{
+		m_Window.draw(obj);
 	}
 
 	void Window::Display()

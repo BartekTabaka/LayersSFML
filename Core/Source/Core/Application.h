@@ -4,8 +4,6 @@
 #include "Window.h"
 #include "Event.h"
 
-#include <SFML/Graphics.hpp>
-
 #include <memory>
 #include <concepts>
 #include <string>

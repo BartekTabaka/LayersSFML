@@ -1,6 +1,6 @@
 #include "OverlayLayer.h"
 #include "Core/Application.h"
-#include <print>
+
 OverlayLayer::OverlayLayer()
 	: txt1("Assets/Textures/logo.png"),
 	  sp1(txt1)

@@ -66,7 +66,6 @@ namespace Core {
 
 		static Application& Get(); //Get Instance
 		static float GetTime(TimeUnit unit = TimeUnit::Seconds); // Get application runtime
-		static float GetDeltaTime(); // Returns dT in seconds
 
 		// Chwilowa zmienna, ¿eby nadaæ jak¹œ funkcjê klikaniu myszy
 		sf::Color s_ClearColor = sf::Color::Cyan;

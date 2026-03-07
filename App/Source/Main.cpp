@@ -49,10 +49,11 @@ int main()
 
 ////////////////////////////
 //
+//  Pamiêtaj o opcji "Automatycznie zamknij okno po zakoñczeniu debugowania"
+// 
 //	TODO:
 //  1. Stworzenie w³asnych typów eventów
-//  2. Naprawienie RUNTIME
-//  3. Uzupe³nienie OverlayLayer
-//  4. Dodanie VoidLayer
+//  2. Uzupe³nienie OverlayLayer
+//  3. Dodanie VoidLayer
 //
 ////////////////////////////

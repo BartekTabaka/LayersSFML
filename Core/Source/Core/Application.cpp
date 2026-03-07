@@ -33,11 +33,10 @@ namespace Core {
 		m_Running = true;
 		s_RuntimeClock.restart();
 
+		float lastTime = s_RuntimeClock.getElapsedTime().asSeconds();
+
 		while (m_Running) {
 			while (m_Window->IsOpen()) {
-				// DeltaTime
-				float dT = GetDeltaTime();
-
 				// Event handling
 				while (const std::optional event = m_Window->pollEvent()) {
 					if (event->is<sf::Event::Closed>() ||
@@ -52,6 +51,12 @@ namespace Core {
 						RaiseEvent(event);
 					}
 				}
+
+				// DeltaTime
+				float currentTime = s_RuntimeClock.getElapsedTime().asSeconds();
+				float dT = currentTime - lastTime;
+				lastTime = currentTime;
+				std::println("DeltaTime: {}s", dT);
 
 				// Handling Layer transitions before updating and rendering
 				HandlePendingLayerTransitions();
@@ -114,11 +119,6 @@ namespace Core {
 		}
 
 		return 0.f;
-	}
-
-	float Application::GetDeltaTime()
-	{
-		return s_RuntimeClock.restart().asSeconds();
 	}
 
 	void Application::QueueLayerTransition(Layer* from, std::unique_ptr<Layer> to)

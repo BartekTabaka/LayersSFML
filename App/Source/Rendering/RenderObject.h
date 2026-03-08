@@ -44,8 +44,7 @@ public:
 		: m_Sprite(texture), m_OnClick(std::move(onClick))
 	{
 		auto b = m_Sprite.getLocalBounds();
-		m_Sprite.setOrigin({ b.size.x / 2.f, b.size.y / 2.f });
-		m_ScaleBefore = { 1.f, 1.f };
+		//m_Sprite.setOrigin({ b.size.x / 2.f, b.size.y / 2.f });
 	}
 
 	void UpdateHover(const sf::Vector2f& mousePos)
@@ -68,7 +67,7 @@ public:
 		return getTransform().transformRect(m_Sprite.getLocalBounds());
 	}
 private:
-	void draw(sf::RenderTarget& target, sf::RenderStates states)
+	void draw(sf::RenderTarget& target, sf::RenderStates states) const override
 	{
 		states.transform *= getTransform();
 		target.draw(m_Sprite, states);
@@ -76,20 +75,22 @@ private:
 
 	void OnHover()
 	{
-		m_Sprite.setColor(sf::Color(255, 230, 200)); // lekki tint
-		m_ScaleBefore = getScale();
-		setScale({ m_ScaleBefore.x * 1.12f, m_ScaleBefore.y * 1.12f });
+		std::println("Hovered!");
+		m_Sprite.setColor(sf::Color::Red);
+		setScale(m_HoveredScale);
 	}
 
 	void OnDehover()
 	{
+		std::println("Dehovered!");
 		m_Sprite.setColor(sf::Color::White);
-		m_Sprite.setScale(m_ScaleBefore);
+		setScale(m_NormalScale);
 	}
 private:
 	sf::Sprite m_Sprite;
 
 	bool m_IsHovered = false;
 	std::function<void()> m_OnClick;
-	sf::Vector2f m_ScaleBefore;
+	const sf::Vector2f m_NormalScale = { 1.f, 1.f };
+	const sf::Vector2f m_HoveredScale = { 1.2f, 1.2f };
 };

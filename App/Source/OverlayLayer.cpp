@@ -12,7 +12,8 @@ OverlayLayer::OverlayLayer()
 	};
 
 	auto playButton = std::make_unique<Button>(txt, []() {
-		std::println("Play button clicked!");
+		std::println("[ACTION]: Play button clicked!");
+		std::println("[ACTION]: Changing background color to white");
 		Core::Application::Get().s_ClearColor = sf::Color::White;
 	});
 	playButton->setPosition({ 500, 250 });

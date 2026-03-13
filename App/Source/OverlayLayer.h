@@ -20,8 +20,6 @@ private:
 	bool OnMouseButtonPressed(Core::MouseButtonPressedEvent& event);
 	bool OnMouseMoved(Core::MouseMovedEvent& event);
 private:
-	bool IsButtonHovered();
-	RenderObject* GetHoveredObject();
 	void AddObject(std::unique_ptr<RenderObject> obj);
 private:
 

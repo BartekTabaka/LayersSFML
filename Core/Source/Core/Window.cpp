@@ -1,6 +1,7 @@
 #include "Window.h"
 #include <print>
-namespace Core {
+namespace Core 
+{
 	Window::Window(const WindowSpecification& specification)
 		: m_Specification(specification)
 	{
@@ -41,15 +42,21 @@ namespace Core {
 		return m_Window.pollEvent();
 	}
 
+	Vec2f Window::GetSize() const
+	{
+		const Vec2u size = m_Window.getSize();
+		return static_cast<Vec2f>(size);
+	}
+
 	Vec2f Window::GetMousePosWindow() const
 	{
-		Vec2i mousePos = sf::Mouse::getPosition(m_Window);
+		const Vec2i mousePos = sf::Mouse::getPosition(m_Window);
 		return static_cast<Vec2f>(mousePos);
 	}
 
 	Vec2f Window::GetMousePosScreen() const
 	{
-		Vec2i mousePos = sf::Mouse::getPosition();
+		const Vec2i mousePos = sf::Mouse::getPosition();
 		return static_cast<Vec2f>(mousePos);
 	}
 

@@ -16,7 +16,8 @@ OverlayLayer::OverlayLayer()
 		std::println("[ACTION]: Changing background color to white");
 		Core::Application::Get().s_ClearColor = sf::Color::White;
 	});
-	playButton->setPosition({ 500, 250 });
+	const sf::Vector2f windowSize = Core::Application::Get().GetWindow()->GetSize();
+	playButton->setPosition({ windowSize.x / 2, windowSize.y / 2 }); // Button class origin is already centered
 	m_Buttons.push_back(std::move(playButton));
 }
 

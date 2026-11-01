@@ -8,6 +8,8 @@ set(SOURCES
     Source/AppLayer.cpp
     Source/OverlayLayer.h
     Source/OverlayLayer.cpp
+    Source/VoidLayer.h
+    Source/VoidLayer.cpp
     Source/Rendering/RenderObject.h
 )
 

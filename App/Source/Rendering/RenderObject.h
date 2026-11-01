@@ -43,8 +43,8 @@ public:
 	Button(const sf::Texture& texture, std::function<void()> onClick)
 		: m_Sprite(texture), m_OnClick(std::move(onClick))
 	{
-		auto b = m_Sprite.getLocalBounds();
-		//m_Sprite.setOrigin({ b.size.x / 2.f, b.size.y / 2.f });
+		auto b = m_Sprite.getGlobalBounds();
+		m_Sprite.setOrigin({ b.size.x / 2.f, b.size.y / 2.f });
 	}
 
 	void UpdateHover(const sf::Vector2f& mousePos)
@@ -64,7 +64,7 @@ public:
 
 	sf::FloatRect GetGlobalBounds() const override
 	{
-		return getTransform().transformRect(m_Sprite.getLocalBounds());
+		return getTransform().transformRect(m_Sprite.getGlobalBounds());
 	}
 private:
 	void draw(sf::RenderTarget& target, sf::RenderStates states) const override

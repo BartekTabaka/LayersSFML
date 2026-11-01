@@ -14,24 +14,24 @@ AppLayer::AppLayer()
 	};
 }
 
-void AppLayer::OnEvent(Core::Event& event)
+void AppLayer::onEvent(Core::Event& event)
 {
-	if (!m_EventTypesToHandle.contains(event.GetEventType()))
+	if (!m_EventTypesToHandle.contains(event.getEventType()))
 		return;	
 
 	// Logging
 
 	//Dispatching the event
 	Core::EventDispatcher dispatcher(event);
-	dispatcher.Dispatch<Core::MouseButtonPressedEvent>([this](Core::MouseButtonPressedEvent& e) { return OnMouseButtonPressed(e); });
+	dispatcher.dispatch<Core::MouseButtonPressedEvent>([this](Core::MouseButtonPressedEvent& e) { return onMouseButtonPressed(e); });
 }
 
-void AppLayer::OnUpdate(float dT)
+void AppLayer::onUpdate(float dT)
 {
 	m_Time += dT;
 }
 
-void AppLayer::OnRender()
+void AppLayer::onRender()
 {
 }
 
@@ -39,9 +39,9 @@ void AppLayer::OnRender()
 // Event Callbacks
 // 
 
-bool AppLayer::OnMouseButtonPressed(Core::MouseButtonPressedEvent& event)
+bool AppLayer::onMouseButtonPressed(Core::MouseButtonPressedEvent& event)
 {
-	if (event.GetMouseButton() != 0) return true;
+	if (event.getMouseButton() != 0) return true;
 
 	std::random_device rd;
 	std::mt19937 gen(rd());
@@ -52,6 +52,6 @@ bool AppLayer::OnMouseButtonPressed(Core::MouseButtonPressedEvent& event)
 	uint8_t b = dist(gen);
 	sf::Color newColor = { r, g, b, 255 };
 
-	Core::Application::Get().s_ClearColor = newColor;
+	Core::Application::get().s_ClearColor = newColor;
 	return true;
 }

@@ -18,17 +18,17 @@ namespace Core {
 		s_RuntimeClock.stop();
 
 		m_Window = std::make_shared<Window>(m_Specification.windowSpec);
-		m_Window->Create();
+		m_Window->create();
 	}
 
 	Application::~Application()
 	{
-		m_Window->Destroy();
+		m_Window->destroy();
 
 		s_Appication = nullptr;
 	}
 
-	void Application::Run()
+	void Application::run()
 	{
 		m_Running = true;
 		s_RuntimeClock.restart();
@@ -36,24 +36,24 @@ namespace Core {
 		float lastTime = s_RuntimeClock.getElapsedTime().asSeconds();
 
 		while (m_Running) {
-			while (m_Window->IsOpen()) {
+			while (m_Window->isOpen()) {
 				// Event handling
 				while (const std::optional event = m_Window->pollEvent()) {
 					if (event->is<sf::Event::Closed>() ||
 						event->is<sf::Event::KeyPressed>() && event->getIf<sf::Event::KeyPressed>()->code == sf::Keyboard::Key::Escape) {
-						m_Window->Destroy();
-						Stop();
+						m_Window->destroy();
+						stop();
 						break;
 					}
 					if (event->is<sf::Event::MouseButtonPressed>()) {
 						int pressedButton = static_cast<int>(event->getIf<sf::Event::MouseButtonPressed>()->button);
 						MouseButtonPressedEvent event(pressedButton);
-						RaiseEvent(event);
+						raiseEvent(event);
 					}
 					if (event->is<sf::Event::MouseMoved>()) {
-						sf::Vector2f mousePos = GetWindow()->GetMousePosWindow();
+						sf::Vector2f mousePos = getWindow()->getMousePosWindow();
 						MouseMovedEvent event(mousePos);
-						RaiseEvent(event);
+						raiseEvent(event);
 					}
 				}
 
@@ -63,54 +63,54 @@ namespace Core {
 				lastTime = currentTime;
 
 				// Handling Layer transitions before updating and rendering
-				HandlePendingLayerTransitions();
+				handlePendingLayerTransitions();
 
 				// Updating layers
 				for (const std::unique_ptr<Layer>& layer : m_LayerStack)
-					layer->OnUpdate(dT);
+					layer->onUpdate(dT);
 
 				//m_Window->Clear(sf::Color::Cyan);
-				m_Window->Clear(s_ClearColor);
+				m_Window->clear(s_ClearColor);
 
 				// Rendering layers
 				for (const std::unique_ptr<Layer>& layer : m_LayerStack)
-					layer->OnRender();
+					layer->onRender();
 
-				m_Window->Display();
+				m_Window->display();
 			}
 		}
 	}
 
-	void Application::Stop()
+	void Application::stop()
 	{
 		m_Running = false;
-		std::println("Runtime: {}ms ({}s)", s_RuntimeClock.getElapsedTime().asMilliseconds(), GetTime());
+		std::println("Runtime: {}ms ({}s)", s_RuntimeClock.getElapsedTime().asMilliseconds(), getTime());
 	}
 
-	void Application::RaiseEvent(Event& event)
+	void Application::raiseEvent(Event& event)
 	{
 		for (auto& layer : std::views::reverse(m_LayerStack)) {
-			layer->OnEvent(event);
-			if (event.Handled) {
+			layer->onEvent(event);
+			if (event.handled) {
 				//This log is for debugging purposes
-				std::println("[RaiseEvent] Event \"{}\" has been handled by: {}", event.GetName(), layer->GetName());
+				std::println("[RaiseEvent] Event \"{}\" has been handled by: {}", event.getName(), layer->getName());
 				break;
 			}
 		}
 	}
 
-	std::shared_ptr<Window> Application::GetWindow() const
+	std::shared_ptr<Window> Application::getWindow() const
 	{
 		return m_Window;
 	}
 
-	Application& Application::Get()
+	Application& Application::get()
 	{
 		assert(s_Appication);
 		return *s_Appication;
 	}
 
-	float Application::GetTime(TimeUnit unit)
+	float Application::getTime(TimeUnit unit)
 	{
 		auto time = s_RuntimeClock.getElapsedTime();
 		switch (unit) {
@@ -125,16 +125,16 @@ namespace Core {
 		return 0.f;
 	}
 
-	void Application::QueueLayerTransition(Layer* from, std::unique_ptr<Layer> to)
+	void Application::queueLayerTransition(Layer* from, std::unique_ptr<Layer> to)
 	{
 		m_PendingTransitions.push_back({ from, std::move(to) });
 	}
 
-	void Application::HandlePendingLayerTransitions()
+	void Application::handlePendingLayerTransitions()
 	{
 		for (auto& transition : m_PendingTransitions) {
 			for (auto& layer : m_LayerStack) {
-				std::println("{}", layer->GetName());
+				std::println("{}", layer->getName());
 				if (layer.get() == transition.from) {
 					layer = std::move(transition.to);
 					break;

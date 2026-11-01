@@ -14,41 +14,41 @@ OverlayLayer::OverlayLayer()
 	auto playButton = std::make_unique<Button>(txt, []() {
 		std::println("[ACTION]: Play button clicked!");
 		std::println("[ACTION]: Changing background color to white");
-		Core::Application::Get().s_ClearColor = sf::Color::White;
+		Core::Application::get().s_ClearColor = sf::Color::White;
 	});
-	const sf::Vector2f windowSize = Core::Application::Get().GetWindow()->GetSize();
+	const sf::Vector2f windowSize = Core::Application::get().getWindow()->getSize();
 	playButton->setPosition({ windowSize.x / 2, windowSize.y / 2 }); // Button class origin is already centered
 	m_Buttons.push_back(std::move(playButton));
 }
 
-void OverlayLayer::OnEvent(Core::Event& event)
+void OverlayLayer::onEvent(Core::Event& event)
 {
-	if (!m_EventTypesToHandle.contains(event.GetEventType()))
+	if (!m_EventTypesToHandle.contains(event.getEventType()))
 		return;
 
 	Core::EventDispatcher dispatcher(event);
-	dispatcher.Dispatch<Core::MouseButtonPressedEvent>([this](Core::MouseButtonPressedEvent& e) { return OnMouseButtonPressed(e); });
-	dispatcher.Dispatch<Core::MouseMovedEvent>([this](Core::MouseMovedEvent& e) { return OnMouseMoved(e); });
+	dispatcher.dispatch<Core::MouseButtonPressedEvent>([this](Core::MouseButtonPressedEvent& e) { return onMouseButtonPressed(e); });
+	dispatcher.dispatch<Core::MouseMovedEvent>([this](Core::MouseMovedEvent& e) { return onMouseMoved(e); });
 }
 
-void OverlayLayer::OnUpdate(float dT)
+void OverlayLayer::onUpdate(float dT)
 {
 	m_Time += dT;
 }
 
-void OverlayLayer::OnRender()
+void OverlayLayer::onRender()
 {
-	auto window = Core::Application::Get().GetWindow();
-	for (auto& obj : m_Objects) window->Draw(*obj);
-	for (auto& btn : m_Buttons) window->Draw(*btn);
+	auto window = Core::Application::get().getWindow();
+	for (auto& obj : m_Objects) window->draw(*obj);
+	for (auto& btn : m_Buttons) window->draw(*btn);
 }
 
-bool OverlayLayer::OnMouseButtonPressed(Core::MouseButtonPressedEvent& event)
+bool OverlayLayer::onMouseButtonPressed(Core::MouseButtonPressedEvent& event)
 {
-	auto mousePos = Core::Application::Get().GetWindow()->GetMousePosWindow();
+	auto mousePos = Core::Application::get().getWindow()->getMousePosWindow();
 	for (auto it = m_Buttons.rbegin(); it != m_Buttons.rend(); ++it) {
-		if ((*it)->GetGlobalBounds().contains(mousePos)) {
-			(*it)->OnClick();
+		if ((*it)->getGlobalBounds().contains(mousePos)) {
+			(*it)->onClick();
 			return true;
 		}
 	}
@@ -56,17 +56,17 @@ bool OverlayLayer::OnMouseButtonPressed(Core::MouseButtonPressedEvent& event)
 	return false;
 }
 
-bool OverlayLayer::OnMouseMoved(Core::MouseMovedEvent& event)
+bool OverlayLayer::onMouseMoved(Core::MouseMovedEvent& event)
 {
-	auto mousePos = Core::Application::Get().GetWindow()->GetMousePosWindow();
+	auto mousePos = Core::Application::get().getWindow()->getMousePosWindow();
 	for (auto& btn : m_Buttons) {
-		btn->UpdateHover(mousePos);
+		btn->updateHover(mousePos);
 	}
 
 	return false;
 }
 
-void OverlayLayer::AddObject(std::unique_ptr<RenderObject> obj)
+void OverlayLayer::addObject(std::unique_ptr<RenderObject> obj)
 {
 	m_Objects.push_back(std::move(obj));
 }

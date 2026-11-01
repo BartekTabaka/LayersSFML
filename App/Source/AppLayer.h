@@ -11,12 +11,12 @@ class AppLayer : public Core::Layer {
 public:
 	AppLayer();
 
-	virtual void OnEvent(Core::Event& event) override;
+	virtual void onEvent(Core::Event& event) override;
 
-	virtual void OnUpdate(float dT) override;
-	virtual void OnRender() override;
+	virtual void onUpdate(float dT) override;
+	virtual void onRender() override;
 private:
-	bool OnMouseButtonPressed(Core::MouseButtonPressedEvent& event);
+	bool onMouseButtonPressed(Core::MouseButtonPressedEvent& event);
 private:
 	float m_Time = 0.0f;
 };

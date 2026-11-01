@@ -2,8 +2,8 @@
 #include "Application.h"
 
 namespace Core {
-    void Layer::QueueTransition(std::unique_ptr<Layer> toLayer)
+    void Layer::queueTransition(std::unique_ptr<Layer> toLayer)
     {
-        Application::Get().QueueLayerTransition(this, std::move(toLayer));
+        Application::get().queueLayerTransition(this, std::move(toLayer));
     }
 }

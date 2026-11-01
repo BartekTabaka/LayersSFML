@@ -10,8 +10,8 @@
 #include <vector>
 #include <print>
 
-namespace Core {
-
+namespace Core 
+{
 	enum class TimeUnit {
 		Seconds, Milliseconds, Microseconds
 	};
@@ -33,21 +33,21 @@ namespace Core {
 		Application(const ApplicationSpecification& appSpec = ApplicationSpecification());
 		~Application();
 
-		void Run();
-		void Stop();
+		void run();
+		void stop();
 
-		void RaiseEvent(Event& event); // layer->OnEvent(event);
+		void raiseEvent(Event& event); // layer->OnEvent(event);
 
 		//Dodawanie nowej warstwy
 		template<std::derived_from<Layer> TLayer>
-		void PushLayer()
+		void pushLayer()
 		{
 			m_LayerStack.push_back(std::make_unique<TLayer>());
 		}
 
 		//Wydobycie/otrzymanie warstwy z m_LayerStack
 		template<std::derived_from<Layer> TLayer>
-		TLayer* GetLayer()
+		TLayer* getLayer()
 		{
 			// Iteracja przez ka¿d¹ warstwê w m_LayerStack
 			for (const auto& layer : m_LayerStack) {
@@ -62,16 +62,16 @@ namespace Core {
 			return nullptr;
 		}
 
-		std::shared_ptr<Window> GetWindow() const; // Returns a pointer to window instance
+		std::shared_ptr<Window> getWindow() const; // Returns a pointer to window instance
 
-		static Application& Get(); //Get Instance
-		static float GetTime(TimeUnit unit = TimeUnit::Seconds); // Get application runtime
+		static Application& get(); //Get Instance
+		static float getTime(TimeUnit unit = TimeUnit::Seconds); // Get application runtime
 
 		// Chwilowa zmienna, ¿eby nadaæ jak¹œ funkcjê klikaniu myszy
 		sf::Color s_ClearColor = sf::Color::Cyan;
 	private:
-		void QueueLayerTransition(Layer* from, std::unique_ptr<Layer> to);
-		void HandlePendingLayerTransitions();
+		void queueLayerTransition(Layer* from, std::unique_ptr<Layer> to);
+		void handlePendingLayerTransitions();
 	private:
 		bool m_Running = false;
 

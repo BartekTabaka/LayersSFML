@@ -9,9 +9,9 @@ int main()
 	appSpec.Name = "LayersSFML";
 	
 	Core::Application application(appSpec);
-	application.PushLayer<AppLayer>();
-	application.PushLayer<OverlayLayer>();
-	application.Run();
+	application.pushLayer<AppLayer>();
+	application.pushLayer<OverlayLayer>();
+	application.run();
 }
 
 ////////////////////////////

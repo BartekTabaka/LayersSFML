@@ -13,18 +13,18 @@ namespace Core {
 		MouseButtonPressed, MouseButtonReleased, MouseMoved, MouseScrolled,
 	};
 
-#define EVENT_CLASS_TYPE(type) static EventType GetStaticType() { return EventType::type; }\
-								virtual EventType GetEventType() const override { return GetStaticType(); }\
-								virtual const char* GetName() const override { return #type; }
+#define EVENT_CLASS_TYPE(type) static EventType getStaticType() { return EventType::type; }\
+								virtual EventType getEventType() const override { return getStaticType(); }\
+								virtual const char* getName() const override { return #type; }
 
 	class Event {
 	public:
-		bool Handled = false;
+		bool handled = false;
 
 		virtual ~Event() = default;
-		virtual EventType GetEventType() const = 0;
-		virtual const char* GetName() const = 0;
-		virtual std::string ToString() const { return GetName(); };
+		virtual EventType getEventType() const = 0;
+		virtual const char* getName() const = 0;
+		virtual std::string toString() const { return getName(); }
 	};
 
 	class EventDispatcher {
@@ -35,11 +35,11 @@ namespace Core {
 			: m_Event(event) { }
 
 		template<typename T>
-		bool Dispatch(EventFn<T> func)
+		bool dispatch(EventFn<T> func)
 		{
 			// Check if the event type matches and the event hasn't been handled yet
-			if (m_Event.GetEventType() == T::GetStaticType() && !m_Event.Handled) {
-				m_Event.Handled = func(static_cast<T&>(m_Event));
+			if (m_Event.getEventType() == T::getStaticType() && !m_Event.handled) {
+				m_Event.handled = func(static_cast<T&>(m_Event));
 				return true;
 			}
 			return false;

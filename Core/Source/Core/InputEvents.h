@@ -14,9 +14,9 @@ namespace Core {
 		MouseMovedEvent(sf::Vector2f mousePos)
 			: m_MousePos(mousePos) {}
 
-		inline sf::Vector2f GetMousePosition() const { return m_MousePos; };
+		inline sf::Vector2f getMousePosition() const { return m_MousePos; };
 	
-		std::string ToString() const override
+		std::string toString() const override
 		{
 			return std::format("Mouse moved to - x:{}, y:{}", m_MousePos.x, m_MousePos.y);
 		}
@@ -28,7 +28,7 @@ namespace Core {
 
 	class MouseButtonEvent : public Event {
 	public:
-		inline int GetMouseButton() const { return m_Button; };
+		inline int getMouseButton() const { return m_Button; };
 	protected:
 		MouseButtonEvent(int button)
 			: m_Button(button) {}
@@ -42,7 +42,7 @@ namespace Core {
 			: MouseButtonEvent(button) {}
 
 		// Returns the event's specification
-		std::string ToString() const override
+		std::string toString() const override
 		{
 			return std::format("Mouse button pressed: {}", m_Button);
 		}

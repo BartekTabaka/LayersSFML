@@ -20,20 +20,20 @@ namespace Core {
 		Window(const WindowSpecification& specification);
 		~Window();
 
-		void Create();
-		void Destroy();
+		void create();
+		void destroy();
 
-		bool IsOpen() const;
+		bool isOpen() const;
 		std::optional<sf::Event> pollEvent();
-		Vec2f GetSize() const;
+		Vec2f getSize() const;
 		// Get current mouse position inside of the window
-		Vec2f GetMousePosWindow() const;
+		Vec2f getMousePosWindow() const;
 		// Get current global mouse position (on screen)
-		Vec2f GetMousePosScreen() const;
+		Vec2f getMousePosScreen() const;
 
-		void Clear(sf::Color clearColor = sf::Color::Black);
-		void Draw(sf::Drawable& obj);
-		void Display();
+		void clear(sf::Color clearColor = sf::Color::Black);
+		void draw(sf::Drawable& obj);
+		void display();
 	private:
 		WindowSpecification m_Specification;
 		sf::ContextSettings m_ContextSettings;

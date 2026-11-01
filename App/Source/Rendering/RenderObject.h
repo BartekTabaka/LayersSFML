@@ -9,7 +9,7 @@ public:
 	virtual ~RenderObject() = default;
 
 	// Transforms
-	virtual sf::FloatRect GetGlobalBounds() const = 0;
+	virtual sf::FloatRect getGlobalBounds() const = 0;
 };
 
 class MySprite : public RenderObject, public sf::Transformable {
@@ -19,12 +19,12 @@ public:
 	{
 	}
 
-	void SetColor(sf::Color color)
+	void setColor(sf::Color color)
 	{
 		m_Sprite.setColor(color);
 	}
 
-	sf::FloatRect GetGlobalBounds() const override
+	sf::FloatRect getGlobalBounds() const override
 	{
 		return getTransform().transformRect(m_Sprite.getLocalBounds());
 	}
@@ -47,9 +47,9 @@ public:
 		m_Sprite.setOrigin({ b.size.x / 2.f, b.size.y / 2.f });
 	}
 
-	void UpdateHover(const sf::Vector2f& mousePos)
+	void updateHover(const sf::Vector2f& mousePos)
 	{
-		bool now = GetGlobalBounds().contains(mousePos);
+		bool now = getGlobalBounds().contains(mousePos);
 
 		if (now && !m_IsHovered) OnHover();
 		else if (!now && m_IsHovered) OnDehover();
@@ -57,12 +57,12 @@ public:
 		m_IsHovered = now;
 	}
 
-	void OnClick()
+	void onClick()
 	{
 		if (m_OnClick) m_OnClick();
 	}
 
-	sf::FloatRect GetGlobalBounds() const override
+	sf::FloatRect getGlobalBounds() const override
 	{
 		return getTransform().transformRect(m_Sprite.getGlobalBounds());
 	}

@@ -11,10 +11,10 @@ namespace Core
 
 	Window::~Window()
 	{
-		Destroy();
+		destroy();
 	}
 
-	void Window::Create()
+	void Window::create()
 	{
 		m_Window.create(
 			sf::VideoMode({ m_Specification.Width, m_Specification.Height }),
@@ -25,14 +25,14 @@ namespace Core
 		);
 	}
 
-	void Window::Destroy()
+	void Window::destroy()
 	{
 		if (m_Window.isOpen()) {
 			m_Window.close();
 		}
 	}
 
-	bool Window::IsOpen() const
+	bool Window::isOpen() const
 	{
 		return m_Window.isOpen();
 	}
@@ -42,35 +42,35 @@ namespace Core
 		return m_Window.pollEvent();
 	}
 
-	Vec2f Window::GetSize() const
+	Vec2f Window::getSize() const
 	{
 		const Vec2u size = m_Window.getSize();
 		return static_cast<Vec2f>(size);
 	}
 
-	Vec2f Window::GetMousePosWindow() const
+	Vec2f Window::getMousePosWindow() const
 	{
 		const Vec2i mousePos = sf::Mouse::getPosition(m_Window);
 		return static_cast<Vec2f>(mousePos);
 	}
 
-	Vec2f Window::GetMousePosScreen() const
+	Vec2f Window::getMousePosScreen() const
 	{
 		const Vec2i mousePos = sf::Mouse::getPosition();
 		return static_cast<Vec2f>(mousePos);
 	}
 
-	void Window::Clear(sf::Color clearColor)
+	void Window::clear(sf::Color clearColor)
 	{
 		m_Window.clear(clearColor);
 	}
 
-	void Window::Draw(sf::Drawable& obj)
+	void Window::draw(sf::Drawable& obj)
 	{
 		m_Window.draw(obj);
 	}
 
-	void Window::Display()
+	void Window::display()
 	{
 		m_Window.display();
 	}

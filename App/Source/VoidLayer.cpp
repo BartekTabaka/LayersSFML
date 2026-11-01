@@ -7,14 +7,14 @@ VoidLayer::VoidLayer()
 	m_EventTypesToHandle = {};
 }
 
-void VoidLayer::OnEvent(Core::Event& event)
+void VoidLayer::onEvent(Core::Event& event)
 {
 }
 
-void VoidLayer::OnUpdate(float ts)
+void VoidLayer::onUpdate(float ts)
 {
 }
 
-void VoidLayer::OnRender()
+void VoidLayer::onRender()
 {
 }

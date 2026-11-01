@@ -9,9 +9,10 @@ class VoidLayer : public Core::Layer {
 public:
 	VoidLayer();
 
-	void OnEvent(Core::Event& event) override;
-	void OnUpdate(float ts) override;
-	void OnRender() override;
+	void onEvent(Core::Event& event) override;
+
+	void onUpdate(float ts) override;
+	void onRender() override;
 private:
 	float m_Time = 0.0f;
 };

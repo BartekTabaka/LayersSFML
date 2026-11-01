@@ -1,14 +1,14 @@
-#include "Application.h"
+ï»¿#include "Application.h"
 #include "InputEvents.h"
 
 #include <ranges>
 #include <print>
 namespace Core {
 
-	// Instancja klasy dostêpna wszêdzie (poprzez Application::Get())
+	// Instancja klasy dostÄ™pna wszÄ™dzie (poprzez Application::Get())
 	static Application* s_Appication = nullptr;
 
-	// Zegar który liczy czas dzia³ania aplikacji
+	// Zegar ktÃ³ry liczy czas dziaÅ‚ania aplikacji
 	static sf::Clock s_RuntimeClock;
 
 	Application::Application(const ApplicationSpecification& appSpec)

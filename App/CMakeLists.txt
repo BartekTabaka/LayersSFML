@@ -2,8 +2,10 @@
 # App
 #
 
-set(SOURCES
+# Files
+set(APP_SOURCES
     Source/Main.cpp
+
     Source/AppLayer.h
     Source/AppLayer.cpp
     Source/OverlayLayer.h
@@ -13,14 +15,23 @@ set(SOURCES
     Source/Rendering/RenderObject.h
 )
 
+# Add executable (.exe)
 add_executable(App)
 
-target_sources(App PRIVATE ${SOURCES})
+target_sources(App PRIVATE ${APP_SOURCES})
+target_include_directories(App PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/Source)
 
-source_group(TREE "${CMAKE_CURRENT_SOURCE_DIR}" FILES ${SOURCES})
-
+# Link libraries
 target_link_libraries(App PRIVATE Core)
 
-target_include_directories(App PRIVATE Source)
+# Windows-only stuff
+if (WIN32)
+    set_target_properties(App PROPERTIES 
+        WIN32_EXECUTABLE $<CONFIG:RELEASE>
+    )
+endif()
 
-set_target_properties(App PROPERTIES VS_DEBUGGER_WORKING_DIRECTORY "${CMAKE_SOURCE_DIR}/App")
+# Working directory
+set_target_properties(App PROPERTIES 
+    VS_DEBUGGER_WORKING_DIRECTORY "${CMAKE_SOURCE_DIR}/App"
+)

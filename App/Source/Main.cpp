@@ -1,4 +1,4 @@
-#include "Core/Application.h"
+ï»¿#include "Core/Application.h"
 
 #include "AppLayer.h"
 #include "OverlayLayer.h"
@@ -16,11 +16,11 @@ int main()
 
 ////////////////////////////
 //
-//  Pamiêtaj o opcji "Automatycznie zamknij okno po zakoñczeniu debugowania"
+//  PamiÄ™taj o opcji "Automatycznie zamknij okno po zakoÅ„czeniu debugowania"
 // 
 //	TODO:
-//  1. Stworzenie w³asnych typów eventów
-//  2. Uzupe³nienie OverlayLayer
+//  1. Stworzenie wÅ‚asnych typÃ³w eventÃ³w
+//  2. UzupeÅ‚nienie OverlayLayer
 //  3. Dodanie VoidLayer
 //
 ////////////////////////////

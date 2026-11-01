@@ -2,7 +2,8 @@
 # Core
 #
 
-set(SOURCES
+# Files
+set(CORE_SOURCES
     Source/Core/Application.h
     Source/Core/Application.cpp
     Source/Core/Window.h
@@ -13,12 +14,15 @@ set(SOURCES
     Source/Core/InputEvents.h
 )
 
+# Library definition    
 add_library(Core STATIC)
 
-target_sources(Core PRIVATE ${SOURCES})
+# Set sources
+target_sources(Core PRIVATE ${CORE_SOURCES})
+target_include_directories(Core PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/Source)
 
 #Match VS filters to directory structure on disk
-source_group(TREE "${CMAKE_CURRENT_SOURCE_DIR}" FILES ${SOURCES})
+#source_group(TREE "${CMAKE_CURRENT_SOURCE_DIR}" FILES ${CORE_SOURCES})
 
 target_link_libraries(Core
     PUBLIC
@@ -27,5 +31,3 @@ target_link_libraries(Core
         sfml-system
         sfml-audio
 )
-
-target_include_directories(Core PUBLIC Source)

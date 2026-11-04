@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 
 #include "Layer.h"
 #include "Window.h"
@@ -49,12 +49,12 @@ namespace Core
 		template<std::derived_from<Layer> TLayer>
 		TLayer* getLayer()
 		{
-			// Iteracja przez ka¿d¹ warstwê w m_LayerStack
+			// Iteracja przez kaÅ¼dÄ… warstwÄ™ w m_LayerStack
 			for (const auto& layer : m_LayerStack) {
-				if (auto casted = dynamic_cast<TLayer*>(layer.get())) { // Rzutujemy ka¿d¹ warstwê na oczekiwany typ 
-					// (TLayer) i sprawdzamy czy taka jest, jeœli:
-					// tak - zwracamy pierwsz¹ któr¹ uda³o siê rzutowaæ,
-					// nie - zwracamy nullptr (informacja ¿e nie ma 
+				if (auto casted = dynamic_cast<TLayer*>(layer.get())) { // Rzutujemy kaÅ¼dÄ… warstwÄ™ na oczekiwany typ 
+					// (TLayer) i sprawdzamy czy taka jest, jeÅ›li:
+					// tak - zwracamy pierwszÄ… ktÃ³rÄ… udaÅ‚o siÄ™ rzutowaÄ‡,
+					// nie - zwracamy nullptr (informacja Å¼e nie ma 
 					//		 warstwy o podanym typie
 					return casted;
 				}
@@ -67,7 +67,7 @@ namespace Core
 		static Application& get(); //Get Instance
 		static float getTime(TimeUnit unit = TimeUnit::Seconds); // Get application runtime
 
-		// Chwilowa zmienna, ¿eby nadaæ jak¹œ funkcjê klikaniu myszy
+		// Chwilowa zmienna, Å¼eby nadaÄ‡ jakÄ…Å› funkcjÄ™ klikaniu myszy
 		sf::Color s_ClearColor = sf::Color::Cyan;
 	private:
 		void queueLayerTransition(Layer* from, std::unique_ptr<Layer> to);

@@ -47,9 +47,9 @@ bool AppLayer::onMouseButtonPressed(Core::MouseButtonPressedEvent& event)
 	std::mt19937 gen(rd());
 	std::uniform_int_distribution<> dist(0, 256);
 
-	uint8_t r = dist(gen);
-	uint8_t g = dist(gen);
-	uint8_t b = dist(gen);
+	uint8_t r = static_cast<uint8_t>(dist(gen));
+	uint8_t g = static_cast<uint8_t>(dist(gen));
+	uint8_t b = static_cast<uint8_t>(dist(gen));
 	sf::Color newColor = { r, g, b, 255 };
 
 	Core::Application::get().s_ClearColor = newColor;

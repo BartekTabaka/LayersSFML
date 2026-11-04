@@ -1,4 +1,4 @@
-#include "OverlayLayer.h"
+﻿#include "OverlayLayer.h"
 #include "Core/Application.h"
 
 OverlayLayer::OverlayLayer()
@@ -11,14 +11,15 @@ OverlayLayer::OverlayLayer()
 		Core::EventType::MouseMoved
 	};
 
-	auto playButton = std::make_unique<Button>(txt, []() {
+	// -- Reset button ------------
+	auto resetButton = std::make_unique<Button>(txt, []() {
 		std::println("[ACTION]: Play button clicked!");
 		std::println("[ACTION]: Changing background color to white");
 		Core::Application::get().s_ClearColor = sf::Color::White;
 	});
 	const sf::Vector2f windowSize = Core::Application::get().getWindow()->getSize();
-	playButton->setPosition({ windowSize.x / 2, windowSize.y / 2 }); // Button class origin is already centered
-	m_Buttons.push_back(std::move(playButton));
+	resetButton->setPosition({ windowSize.x / 2, windowSize.y / 2 }); // Button class origin is already centered
+	m_Buttons.push_back(std::move(resetButton));
 }
 
 void OverlayLayer::onEvent(Core::Event& event)
@@ -47,7 +48,7 @@ bool OverlayLayer::onMouseButtonPressed(Core::MouseButtonPressedEvent& event)
 {
 	auto mousePos = Core::Application::get().getWindow()->getMousePosWindow();
 	for (auto it = m_Buttons.rbegin(); it != m_Buttons.rend(); ++it) {
-		if ((*it)->getGlobalBounds().contains(mousePos)) {
+		if ((*it)->isHit(mousePos)) {
 			(*it)->onClick();
 			return true;
 		}

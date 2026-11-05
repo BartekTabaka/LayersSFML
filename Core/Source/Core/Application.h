@@ -9,6 +9,7 @@
 #include "Event.h"
 #include "Layer.h"
 #include "Window.h"
+#include "Asset/AssetManager.h"
 
 namespace Core 
 {
@@ -76,7 +77,9 @@ namespace Core
 		bool m_Running = false;
 
 		ApplicationSpecification m_Specification;
+
 		std::vector<std::unique_ptr<Layer>> m_LayerStack;
+
 		std::shared_ptr<Window> m_Window;
 
 		friend class Layer;

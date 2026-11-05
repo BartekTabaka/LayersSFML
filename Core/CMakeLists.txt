@@ -1,4 +1,4 @@
-#
+﻿#
 # Core
 #
 
@@ -12,6 +12,13 @@ set(CORE_SOURCES
     Source/Core/Layer.cpp
     Source/Core/Event.h
     Source/Core/InputEvents.h
+
+    Source/Core/Asset/AssetIDs.h
+    Source/Core/Asset/AssetLoader.h
+    Source/Core/Asset/AssetLoadError.h
+    Source/Core/Asset/AssetContainer.h
+    Source/Core/Asset/AssetManager.h
+    Source/Core/Asset/AssetManager.cpp
 )
 
 # Library definition    

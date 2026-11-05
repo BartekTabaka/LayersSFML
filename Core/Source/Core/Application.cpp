@@ -1,7 +1,7 @@
 ﻿#include "Application.h"
 
-#include <ranges>
 #include <print>
+#include <ranges>
 
 #include "InputEvents.h"
 

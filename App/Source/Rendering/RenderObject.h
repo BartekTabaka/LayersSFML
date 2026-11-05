@@ -1,8 +1,9 @@
 ﻿#pragma once
 
+#include <SFML/Graphics.hpp>
+
 #include <functional>
 #include <print>
-#include <SFML/Graphics.hpp>
 
 // Draws a rectangle outline in the coordinate space specified by `states` (for hitbox debugging)
 inline void drawDebugHitbox(sf::RenderTarget& target, const sf::FloatRect& rect, 
@@ -16,7 +17,7 @@ inline void drawDebugHitbox(sf::RenderTarget& target, const sf::FloatRect& rect,
 	target.draw(shape, states);
 }
 
-class RenderObject : public sf::Drawable {
+class RenderObject : public sf::Drawable, public sf::Transformable {
 public:
 	// Global hitbox debug drawing toggle
 	inline static bool s_DebugHitboxes = false;
@@ -27,7 +28,7 @@ public:
 	virtual sf::FloatRect getGlobalBounds() const = 0;
 };
 
-class MySprite : public RenderObject, public sf::Transformable {
+class MySprite : public RenderObject {
 public:
 	MySprite(const sf::Texture& texture)
 		: m_Sprite(texture)
@@ -59,7 +60,7 @@ private:
 	sf::Sprite m_Sprite;
 };
 
-class Button : public RenderObject, public sf::Transformable {
+class Button : public RenderObject {
 public:
 	Button(const sf::Texture& texture, std::function<void()> onClick)
 		: m_Sprite(texture), m_OnClick(std::move(onClick))

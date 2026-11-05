@@ -1,11 +1,11 @@
-#pragma once
+﻿#pragma once
 
 #include "Core/Layer.h"
-#include "Core/InputEvents.h"
-
-#include "Rendering/RenderObject.h"
 
 #include <print>
+
+#include "Core/InputEvents.h"
+#include "Rendering/RenderObject.h"
 
 class AppLayer : public Core::Layer {
 public:

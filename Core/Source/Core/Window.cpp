@@ -1,5 +1,7 @@
-#include "Window.h"
+﻿#include "Window.h"
+
 #include <print>
+
 namespace Core 
 {
 	Window::Window(const WindowSpecification& specification)
@@ -42,22 +44,22 @@ namespace Core
 		return m_Window.pollEvent();
 	}
 
-	Vec2f Window::getSize() const
+	sf::Vector2f Window::getSize() const
 	{
-		const Vec2u size = m_Window.getSize();
-		return static_cast<Vec2f>(size);
+		const sf::Vector2u size = m_Window.getSize();
+		return static_cast<sf::Vector2f>(size);
 	}
 
-	Vec2f Window::getMousePosWindow() const
+	sf::Vector2f Window::getMousePosWindow() const
 	{
-		const Vec2i mousePos = sf::Mouse::getPosition(m_Window);
-		return static_cast<Vec2f>(mousePos);
+		const sf::Vector2i mousePos = sf::Mouse::getPosition(m_Window);
+		return static_cast<sf::Vector2f>(mousePos);
 	}
 
-	Vec2f Window::getMousePosScreen() const
+	sf::Vector2f Window::getMousePosScreen() const
 	{
-		const Vec2i mousePos = sf::Mouse::getPosition();
-		return static_cast<Vec2f>(mousePos);
+		const sf::Vector2i mousePos = sf::Mouse::getPosition();
+		return static_cast<sf::Vector2f>(mousePos);
 	}
 
 	void Window::clear(sf::Color clearColor)

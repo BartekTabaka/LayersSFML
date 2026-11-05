@@ -1,13 +1,10 @@
-#pragma once
+﻿#pragma once
 
 #include <SFML/Graphics.hpp>
 
 namespace Core {
-	using Vec2f = sf::Vector2f;
-	using Vec2i = sf::Vector2i;
-	using Vec2u = sf::Vector2u;
-
-	struct WindowSpecification { // Window properties
+	// Window properties
+	struct WindowSpecification {
 		std::string Title = "Layers SFML";
 		uint32_t Width = 1280;
 		uint32_t Height = 720;
@@ -25,11 +22,11 @@ namespace Core {
 
 		bool isOpen() const;
 		std::optional<sf::Event> pollEvent();
-		Vec2f getSize() const;
+		sf::Vector2f getSize() const;
 		// Get current mouse position inside of the window
-		Vec2f getMousePosWindow() const;
+		sf::Vector2f getMousePosWindow() const;
 		// Get current global mouse position (on screen)
-		Vec2f getMousePosScreen() const;
+		sf::Vector2f getMousePosScreen() const;
 
 		void clear(sf::Color clearColor = sf::Color::Black);
 		void draw(sf::Drawable& obj);

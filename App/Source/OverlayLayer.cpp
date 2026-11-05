@@ -1,4 +1,5 @@
 ﻿#include "OverlayLayer.h"
+
 #include "Core/Application.h"
 
 OverlayLayer::OverlayLayer()
@@ -13,7 +14,7 @@ OverlayLayer::OverlayLayer()
 
 	// -- Reset button ------------
 	auto resetButton = std::make_unique<Button>(txt, []() {
-		std::println("[ACTION]: Play button clicked!");
+		std::println("[ACTION]: Reset button clicked!");
 		std::println("[ACTION]: Changing background color to white");
 		Core::Application::get().s_ClearColor = sf::Color::White;
 	});

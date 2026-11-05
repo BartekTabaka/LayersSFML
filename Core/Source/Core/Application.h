@@ -1,14 +1,14 @@
 ﻿#pragma once
 
-#include "Layer.h"
-#include "Window.h"
-#include "Event.h"
-
-#include <memory>
 #include <concepts>
+#include <memory>
+#include <print>
 #include <string>
 #include <vector>
-#include <print>
+
+#include "Event.h"
+#include "Layer.h"
+#include "Window.h"
 
 namespace Core 
 {
@@ -16,7 +16,8 @@ namespace Core
 		Seconds, Milliseconds, Microseconds
 	};
 
-	struct ApplicationSpecification { // Application properties (Window specification included)
+	// Application properties (Window specification included)
+	struct ApplicationSpecification {
 		std::string Name = "Application";
 		WindowSpecification windowSpec;
 	};
@@ -38,24 +39,23 @@ namespace Core
 
 		void raiseEvent(Event& event); // layer->OnEvent(event);
 
-		//Dodawanie nowej warstwy
+		// Add new layer
 		template<std::derived_from<Layer> TLayer>
 		void pushLayer()
 		{
 			m_LayerStack.push_back(std::make_unique<TLayer>());
 		}
 
-		//Wydobycie/otrzymanie warstwy z m_LayerStack
+		// Get layer from m_LayerStack
 		template<std::derived_from<Layer> TLayer>
 		TLayer* getLayer()
 		{
-			// Iteracja przez każdą warstwę w m_LayerStack
+			// Iterate through every layer in m_LayerStack
 			for (const auto& layer : m_LayerStack) {
-				if (auto casted = dynamic_cast<TLayer*>(layer.get())) { // Rzutujemy każdą warstwę na oczekiwany typ 
-					// (TLayer) i sprawdzamy czy taka jest, jeśli:
-					// tak - zwracamy pierwszą którą udało się rzutować,
-					// nie - zwracamy nullptr (informacja że nie ma 
-					//		 warstwy o podanym typie
+				// Cast each layer to the expected type (TLayer) and check if the cast succeeds
+				if (auto casted = dynamic_cast<TLayer*>(layer.get())) {
+					/* If successful, return the first matching layer.
+					   If unsuccessful, return nullptr (indicating that no layer of the specified type was found). */
 					return casted;
 				}
 			}
@@ -64,10 +64,10 @@ namespace Core
 
 		std::shared_ptr<Window> getWindow() const; // Returns a pointer to window instance
 
-		static Application& get(); //Get Instance
+		static Application& get(); // Get Instance
 		static float getTime(TimeUnit unit = TimeUnit::Seconds); // Get application runtime
 
-		// Chwilowa zmienna, żeby nadać jakąś funkcję klikaniu myszy
+		// Temporary variable
 		sf::Color s_ClearColor = sf::Color::Cyan;
 	private:
 		void queueLayerTransition(Layer* from, std::unique_ptr<Layer> to);

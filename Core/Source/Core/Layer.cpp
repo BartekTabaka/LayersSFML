@@ -1,4 +1,5 @@
-#include "Layer.h"
+﻿#include "Layer.h"
+
 #include "Application.h"
 
 namespace Core {

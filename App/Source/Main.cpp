@@ -16,11 +16,6 @@ int main()
 
 ////////////////////////////
 //
-//  Pamiętaj o opcji "Automatycznie zamknij okno po zakończeniu debugowania"
-// 
-//	TODO:
-//  1. Stworzenie własnych typów eventów
-//  2. Uzupełnienie OverlayLayer
-//  3. Dodanie VoidLayer
+// Remember to enable the "Automatically close the console when debugging stops" option.
 //
 ////////////////////////////

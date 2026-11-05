@@ -1,11 +1,11 @@
-#pragma once
+﻿#pragma once
 
-#include "Event.h"
+#include <SFML/Graphics.hpp>
 
 #include <string>
 #include <unordered_set>
 
-#include <SFML/Graphics.hpp>
+#include "Event.h"
 
 namespace Core {
 	class Layer {

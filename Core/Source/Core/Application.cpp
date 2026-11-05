@@ -1,14 +1,16 @@
 ﻿#include "Application.h"
-#include "InputEvents.h"
 
 #include <ranges>
 #include <print>
+
+#include "InputEvents.h"
+
 namespace Core {
 
-	// Instancja klasy dostępna wszędzie (poprzez Application::Get())
+	// Instance of the class accessible globally (via Application::Get())
 	static Application* s_Appication = nullptr;
 
-	// Zegar który liczy czas działania aplikacji
+	// Timer that tracks the application's runtime
 	static sf::Clock s_RuntimeClock;
 
 	Application::Application(const ApplicationSpecification& appSpec)
@@ -38,19 +40,19 @@ namespace Core {
 		while (m_Running) {
 			while (m_Window->isOpen()) {
 				// Event handling
-				while (const std::optional event = m_Window->pollEvent()) {
-					if (event->is<sf::Event::Closed>() ||
-						event->is<sf::Event::KeyPressed>() && event->getIf<sf::Event::KeyPressed>()->code == sf::Keyboard::Key::Escape) {
+				while (const std::optional pollEvent = m_Window->pollEvent()) {
+					if (pollEvent->is<sf::Event::Closed>() ||
+						pollEvent->is<sf::Event::KeyPressed>() && pollEvent->getIf<sf::Event::KeyPressed>()->code == sf::Keyboard::Key::Escape) {
 						m_Window->destroy();
 						stop();
 						break;
 					}
-					if (event->is<sf::Event::MouseButtonPressed>()) {
-						int pressedButton = static_cast<int>(event->getIf<sf::Event::MouseButtonPressed>()->button);
+					if (pollEvent->is<sf::Event::MouseButtonPressed>()) {
+						int pressedButton = static_cast<int>(pollEvent->getIf<sf::Event::MouseButtonPressed>()->button);
 						MouseButtonPressedEvent event(pressedButton);
 						raiseEvent(event);
 					}
-					if (event->is<sf::Event::MouseMoved>()) {
+					if (pollEvent->is<sf::Event::MouseMoved>()) {
 						sf::Vector2f mousePos = getWindow()->getMousePosWindow();
 						MouseMovedEvent event(mousePos);
 						raiseEvent(event);
@@ -69,7 +71,6 @@ namespace Core {
 				for (const std::unique_ptr<Layer>& layer : m_LayerStack)
 					layer->onUpdate(dT);
 
-				//m_Window->Clear(sf::Color::Cyan);
 				m_Window->clear(s_ClearColor);
 
 				// Rendering layers

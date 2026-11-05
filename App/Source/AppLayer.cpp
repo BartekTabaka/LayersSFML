@@ -1,7 +1,8 @@
-#include "AppLayer.h"
-#include "Core/Application.h"
+﻿#include "AppLayer.h"
 
 #include <random>
+
+#include "Core/Application.h"
 
 AppLayer::AppLayer()
 {
@@ -45,7 +46,7 @@ bool AppLayer::onMouseButtonPressed(Core::MouseButtonPressedEvent& event)
 
 	std::random_device rd;
 	std::mt19937 gen(rd());
-	std::uniform_int_distribution<> dist(0, 256);
+	std::uniform_int_distribution dist(0, 256);
 
 	uint8_t r = static_cast<uint8_t>(dist(gen));
 	uint8_t g = static_cast<uint8_t>(dist(gen));

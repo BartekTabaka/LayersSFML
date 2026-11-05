@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include "Event.h"
 
@@ -41,7 +41,6 @@ namespace Core {
 		MouseButtonPressedEvent(int button)
 			: MouseButtonEvent(button) {}
 
-		// Returns the event's specification
 		std::string toString() const override
 		{
 			return std::format("Mouse button pressed: {}", m_Button);

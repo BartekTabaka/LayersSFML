@@ -1,8 +1,8 @@
-#pragma once
+﻿#pragma once
 
-#include <string>
 #include <functional>
 #include <print>
+#include <string>
 
 namespace Core {
 
@@ -23,7 +23,9 @@ namespace Core {
 
 		virtual ~Event() = default;
 		virtual EventType getEventType() const = 0;
+		// Returns the event's type name (e.g. "MouseMoved").
 		virtual const char* getName() const = 0;
+		// Returns a human-readable description of the event, including additional information (e.g. "Mouse moved to - x:128, y:241"). 
 		virtual std::string toString() const { return getName(); }
 	};
 

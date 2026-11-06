@@ -43,6 +43,6 @@ struct std::formatter<AssetLoadError> : std::formatter<std::string> {
 			result += std::format("\n({})", error.message);
 		}
 		
-		return result;
+		return std::formatter<std::string>::format(result, ctx);
 	}
 };

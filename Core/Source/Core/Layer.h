@@ -7,7 +7,8 @@
 
 #include "Event.h"
 
-namespace Core {
+namespace Core 
+{
 	class Layer {
 	public:
 		virtual ~Layer() = default;

@@ -1,10 +1,13 @@
 ﻿#pragma once
 
-enum class TextureID {
-	Logo
-};
+namespace Core
+{
+	enum class TextureID {
+		Logo
+	};
 
-enum class FontID {
-	LilitaOne,
-	PressStart2P
-};
+	enum class FontID {
+		LilitaOne,
+		PressStart2P
+	};
+}

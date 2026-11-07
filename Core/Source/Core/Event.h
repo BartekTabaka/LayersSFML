@@ -4,8 +4,8 @@
 #include <print>
 #include <string>
 
-namespace Core {
-
+namespace Core 
+{
 	enum class EventType {
 		None = 0,
 		WindowClose, WindowResize,

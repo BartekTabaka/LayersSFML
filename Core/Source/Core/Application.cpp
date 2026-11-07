@@ -100,11 +100,6 @@ namespace Core {
 		}
 	}
 
-	std::shared_ptr<Window> Application::getWindow() const
-	{
-		return m_Window;
-	}
-
 	Application& Application::get()
 	{
 		assert(s_Appication);

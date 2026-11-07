@@ -4,7 +4,8 @@
 
 #include <format>
 
-namespace Core {
+namespace Core 
+{
 	//
 	// Mouse Events
 	//

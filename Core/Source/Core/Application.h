@@ -63,7 +63,7 @@ namespace Core
 			return nullptr;
 		}
 
-		std::shared_ptr<Window> getWindow() const; // Returns a pointer to window instance
+		std::shared_ptr<Window> getWindow() const { return m_Window; } // Returns a pointer to window instance
 
 		static Application& get(); // Get Instance
 		static float getTime(TimeUnit unit = TimeUnit::Seconds); // Get application runtime

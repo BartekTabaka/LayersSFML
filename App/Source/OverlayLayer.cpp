@@ -7,11 +7,6 @@ OverlayLayer::OverlayLayer()
 {
 	m_Name = "OverlayLayer";
 
-	m_EventTypesToHandle = {
-		Core::EventType::MouseButtonPressed,
-		Core::EventType::MouseMoved
-	};
-
 	// -- Reset button ------------
 	auto resetButton = std::make_unique<Button>(txt, []() {
 		std::println("[ACTION]: Reset button clicked!");
@@ -25,9 +20,6 @@ OverlayLayer::OverlayLayer()
 
 void OverlayLayer::onEvent(Core::Event& event)
 {
-	if (!m_EventTypesToHandle.contains(event.getEventType()))
-		return;
-
 	Core::EventDispatcher dispatcher(event);
 	dispatcher.dispatch<Core::MouseButtonPressedEvent>([this](Core::MouseButtonPressedEvent& e) { return onMouseButtonPressed(e); });
 	dispatcher.dispatch<Core::MouseMovedEvent>([this](Core::MouseMovedEvent& e) { return onMouseMoved(e); });

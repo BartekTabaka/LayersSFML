@@ -1,10 +1,8 @@
-#include "VoidLayer.h"
+﻿#include "VoidLayer.h"
 
 VoidLayer::VoidLayer()
 {
 	m_Name = "VoidLayer";
-
-	m_EventTypesToHandle = {};
 }
 
 void VoidLayer::onEvent(Core::Event& event)

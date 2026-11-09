@@ -3,7 +3,6 @@
 #include <SFML/Graphics.hpp>
 
 #include <string>
-#include <unordered_set>
 
 #include "Event.h"
 
@@ -34,6 +33,5 @@ namespace Core
 		void queueTransition(std::unique_ptr<Layer> toLayer);
 	protected:
 		std::string m_Name;
-		std::unordered_set<EventType> m_EventTypesToHandle;
 	};
 }

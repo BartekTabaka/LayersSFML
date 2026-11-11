@@ -1,4 +1,4 @@
-#
+﻿#
 # App
 #
 
@@ -12,7 +12,12 @@ set(APP_SOURCES
     Source/OverlayLayer.cpp
     Source/VoidLayer.h
     Source/VoidLayer.cpp
+
     Source/Rendering/RenderObject.h
+    Source/Rendering/Button.h
+    Source/Rendering/Button.cpp
+    Source/Rendering/MySprite.h
+    Source/Rendering/MySprite.cpp
 )
 
 # Add executable (.exe)

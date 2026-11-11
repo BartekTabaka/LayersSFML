@@ -52,7 +52,7 @@ bool OverlayLayer::onMouseButtonPressed(Core::MouseButtonPressedEvent& event)
 
 bool OverlayLayer::onMouseMoved(Core::MouseMovedEvent& event)
 {
-	auto mousePos = Core::Application::get().getWindow()->getMousePosWindow();
+	auto mousePos = event.getMousePosition();
 	for (auto& btn : m_Buttons) {
 		btn->updateHover(mousePos);
 	}

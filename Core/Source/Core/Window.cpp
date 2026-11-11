@@ -33,6 +33,11 @@ namespace Core
 			m_Window.close();
 		}
 	}
+	
+	void Window::draw(sf::Drawable& obj)
+	{
+		m_Window.draw(obj);
+	}
 
 	bool Window::isOpen() const
 	{
@@ -65,11 +70,6 @@ namespace Core
 	void Window::clear(sf::Color clearColor)
 	{
 		m_Window.clear(clearColor);
-	}
-
-	void Window::draw(sf::Drawable& obj)
-	{
-		m_Window.draw(obj);
 	}
 
 	void Window::display()

@@ -20,6 +20,8 @@ namespace Core {
 		void create();
 		void destroy();
 
+		void draw(sf::Drawable& obj);
+
 		bool isOpen() const;
 		std::optional<sf::Event> pollEvent();
 		sf::Vector2f getSize() const;
@@ -27,13 +29,14 @@ namespace Core {
 		sf::Vector2f getMousePosWindow() const;
 		// Get current global mouse position (on screen)
 		sf::Vector2f getMousePosScreen() const;
-
+	private:
 		void clear(sf::Color clearColor = sf::Color::Black);
-		void draw(sf::Drawable& obj);
 		void display();
 	private:
 		WindowSpecification m_Specification;
 		sf::ContextSettings m_ContextSettings;
 		sf::RenderWindow m_Window;
+
+		friend class Application;
 	};
 }

@@ -44,7 +44,7 @@ public:
 	// AABB in world space (accounts for scaling and rotation)
 	sf::FloatRect getGlobalBounds() const override
 	{
-		return getTransform().transformRect(m_Sprite.getLocalBounds());
+		return getTransform().transformRect(m_Sprite.getGlobalBounds());
 	}
 private:
 	void draw(sf::RenderTarget& target, sf::RenderStates states) const override

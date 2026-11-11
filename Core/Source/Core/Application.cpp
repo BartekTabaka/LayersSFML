@@ -8,7 +8,7 @@
 namespace Core {
 
 	// Instance of the class accessible globally (via Application::Get())
-	static Application* s_Appication = nullptr;
+	static Application* s_Application = nullptr;
 
 	// Timer that tracks the application's runtime
 	static sf::Clock s_RuntimeClock;
@@ -16,7 +16,7 @@ namespace Core {
 	Application::Application(const ApplicationSpecification& appSpec)
 		: m_Specification(appSpec)
 	{
-		s_Appication = this;
+		s_Application = this;
 		s_RuntimeClock.stop();
 
 		m_Window = std::make_shared<Window>(m_Specification.windowSpec);
@@ -27,7 +27,7 @@ namespace Core {
 	{
 		m_Window->destroy();
 
-		s_Appication = nullptr;
+		s_Application = nullptr;
 	}
 
 	void Application::run()
@@ -102,8 +102,8 @@ namespace Core {
 
 	Application& Application::get()
 	{
-		assert(s_Appication);
-		return *s_Appication;
+		assert(s_Application);
+		return *s_Application;
 	}
 
 	float Application::getTime(TimeUnit unit)

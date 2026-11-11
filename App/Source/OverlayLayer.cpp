@@ -8,14 +8,14 @@ OverlayLayer::OverlayLayer()
 	m_Name = "OverlayLayer";
 
 	// -- Reset button ------------
-	auto resetButton = std::make_unique<Button>(txt, []() {
+	auto resetButton = std::make_unique<Button>("Reset button", txt, []() {
 		std::println("[ACTION]: Reset button clicked!");
 		std::println("[ACTION]: Changing background color to white");
 		Core::Application::get().s_ClearColor = sf::Color::White;
 	});
 	const sf::Vector2f windowSize = Core::Application::get().getWindow()->getSize();
 	resetButton->setPosition({ windowSize.x / 2, windowSize.y / 2 }); // Button class origin is already centered
-	m_Buttons.push_back(std::move(resetButton));
+	addObject(std::move(resetButton));
 }
 
 void OverlayLayer::onEvent(Core::Event& event)
@@ -33,16 +33,17 @@ void OverlayLayer::onUpdate(float dT)
 void OverlayLayer::onRender()
 {
 	auto window = Core::Application::get().getWindow();
-	for (auto& obj : m_Objects) window->draw(*obj);
-	for (auto& btn : m_Buttons) window->draw(*btn);
+	for (auto& obj : m_Objects) {
+		window->draw(*obj);
+	}
 }
 
 bool OverlayLayer::onMouseButtonPressed(Core::MouseButtonPressedEvent& event)
 {
 	auto mousePos = Core::Application::get().getWindow()->getMousePosWindow();
-	for (auto it = m_Buttons.rbegin(); it != m_Buttons.rend(); ++it) {
-		if ((*it)->isHit(mousePos)) {
-			(*it)->onClick();
+	for (auto obj = m_Objects.rbegin(); obj != m_Objects.rend(); ++obj) {
+		if ((*obj)->isHit(mousePos)) {
+			(*obj)->onClick();
 			return true;
 		}
 	}
@@ -53,8 +54,8 @@ bool OverlayLayer::onMouseButtonPressed(Core::MouseButtonPressedEvent& event)
 bool OverlayLayer::onMouseMoved(Core::MouseMovedEvent& event)
 {
 	auto mousePos = event.getMousePosition();
-	for (auto& btn : m_Buttons) {
-		btn->updateHover(mousePos);
+	for (auto& obj : m_Objects) {
+		obj->updateHover(mousePos);
 	}
 
 	return false;

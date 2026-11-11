@@ -1,9 +1,9 @@
 ﻿#include "Button.h"
 
-#include <functional>
+#include <print>
 
-Button::Button(const sf::Texture& texture, std::function<void()> onClick)
-	: MySprite(texture)
+Button::Button(std::string_view name, const sf::Texture& texture, std::function<void()> onClick)
+	: MySprite(name, texture)
 {
 	m_BaseScale = { 0.7f, 0.7f };
 	m_OnClick = std::move(onClick);
@@ -70,14 +70,14 @@ void Button::draw(sf::RenderTarget& target, sf::RenderStates states) const
 
 void Button::onHover()
 {
-	std::println("Hovered!");
+	std::println("[ACTION]: {} hovered!", m_Name);
 	m_Sprite.setColor(sf::Color::Red);
 	setScale(m_BaseScale * m_HoverFactor);
 }
 
 void Button::onDehover()
 {
-	std::println("Dehovered!");
+	std::println("[ACTION]: {} dehovered!", m_Name);
 	setScale(m_BaseScale);
 	m_Sprite.setColor(sf::Color::White);
 }

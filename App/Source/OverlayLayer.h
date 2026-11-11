@@ -24,7 +24,6 @@ private:
 private:
 
 	std::vector<std::unique_ptr<RenderObject>> m_Objects;
-	std::vector<std::unique_ptr<Button>> m_Buttons;
 	
 	// Temporary texture, here until I create a resource manager
 	sf::Texture txt;

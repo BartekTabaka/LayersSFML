@@ -3,11 +3,13 @@
 #include "MySprite.h"
 
 #include <SFML/Graphics.hpp>
+#include <functional>
+#include <string_view>
 
 class Button : public MySprite {
 public:
 public:
-	Button(const sf::Texture& texture, std::function<void()> onClick);
+	Button(std::string_view name, const sf::Texture& texture, std::function<void()> onClick);
 
 	void updateHover(const sf::Vector2f& mousePos) override;
 	void onClick() override;

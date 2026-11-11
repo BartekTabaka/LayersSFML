@@ -1,8 +1,9 @@
 ﻿#include "MySprite.h"
 
-MySprite::MySprite(const sf::Texture& texture)
+MySprite::MySprite(std::string_view name, const sf::Texture& texture)
 	: m_Sprite(texture)
 {
+	m_Name = name;
 }
 
 void MySprite::setColor(sf::Color color)

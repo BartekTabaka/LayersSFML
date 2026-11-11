@@ -3,7 +3,7 @@
 #include <SFML/Graphics.hpp>
 
 #include <functional>
-#include <print>
+#include <string>
 
 // Draws a rectangle outline in the coordinate space specified by `states` (for hitbox debugging)
 inline void drawDebugHitbox(sf::RenderTarget& target, const sf::FloatRect& rect, 
@@ -25,6 +25,7 @@ public:
 	virtual ~RenderObject() = default;
 
 	// -- Transforms ------------
+
 	virtual sf::FloatRect getGlobalBounds() const = 0;
 
 	// Returns current position/rotation/origin + base scale
@@ -50,9 +51,12 @@ public:
 	virtual sf::Vector2f getBaseScale() const { return m_BaseScale; }
 
 	// -- Events ------------
+
 	virtual void onClick() {}
 	virtual void updateHover(const sf::Vector2f& mousePos) {}
 protected:
+	std::string m_Name;
+
 	std::function<void()> m_OnClick;
 	sf::Vector2f m_BaseScale = { 1.f, 1.f };
 };

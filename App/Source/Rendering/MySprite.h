@@ -3,10 +3,11 @@
 #include "RenderObject.h"
 
 #include <SFML/Graphics.hpp>
+#include <string_view>
 
 class MySprite : public RenderObject {
 public:
-	MySprite(const sf::Texture& texture);
+	MySprite(std::string_view name, const sf::Texture& texture);
 
 	void setColor(sf::Color color);
 

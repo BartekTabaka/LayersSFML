@@ -3,19 +3,8 @@
 #include "Core/Application.h"
 
 OverlayLayer::OverlayLayer()
-	: txt("Assets/Textures/logo.png")
 {
 	m_Name = "OverlayLayer";
-
-	// -- Reset button ------------
-	auto resetButton = std::make_unique<Button>("Reset button", txt, []() {
-		std::println("[ACTION]: Reset button clicked!");
-		std::println("[ACTION]: Changing background color to white");
-		Core::Application::get().s_ClearColor = sf::Color::White;
-	});
-	const sf::Vector2f windowSize = Core::Application::get().getWindow()->getSize();
-	resetButton->setPosition({ windowSize.x / 2, windowSize.y / 2 }); // Button class origin is already centered
-	addObject(std::move(resetButton));
 }
 
 void OverlayLayer::onEvent(Core::Event& event)
@@ -38,6 +27,15 @@ void OverlayLayer::onRender()
 	}
 }
 
+void OverlayLayer::addObject(std::unique_ptr<Core::RenderObject> obj)
+{
+	m_Objects.push_back(std::move(obj));
+}
+
+//
+// Event Callbacks
+//
+
 bool OverlayLayer::onMouseButtonPressed(Core::MouseButtonPressedEvent& event)
 {
 	auto mousePos = Core::Application::get().getWindow()->getMousePosWindow();
@@ -59,9 +57,4 @@ bool OverlayLayer::onMouseMoved(Core::MouseMovedEvent& event)
 	}
 
 	return false;
-}
-
-void OverlayLayer::addObject(std::unique_ptr<Core::RenderObject> obj)
-{
-	m_Objects.push_back(std::move(obj));
 }

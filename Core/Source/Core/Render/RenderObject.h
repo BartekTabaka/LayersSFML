@@ -57,6 +57,7 @@ namespace Core
 		virtual void onClick() {}
 		virtual void updateHover(const sf::Vector2f& mousePos) {}
 	protected:
+		// Name of the object
 		std::string m_Name;
 
 		std::function<void()> m_OnClick;

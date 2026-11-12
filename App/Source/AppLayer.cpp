@@ -4,6 +4,7 @@
 #include <print>
 
 #include "Core/Application.h"
+#include "Core/InputEvents.h"
 #include "Render/Button.h"
 
 AppLayer::AppLayer()
@@ -27,24 +28,6 @@ void AppLayer::onEvent(Core::Event& event)
 	Core::EventDispatcher dispatcher(event);
 	dispatcher.dispatch<Core::MouseButtonPressedEvent>([this](Core::MouseButtonPressedEvent& e) { return onMouseButtonPressed(e); });
 	dispatcher.dispatch<Core::MouseMovedEvent>([this](Core::MouseMovedEvent& e) { return onMouseMoved(e); });
-}
-
-void AppLayer::onUpdate(float dT)
-{
-	m_Time += dT;
-}
-
-void AppLayer::onRender()
-{
-	auto window = Core::Application::get().getWindow();
-	for (auto& obj : m_Objects) {
-		window->draw(*obj);
-	}
-}
-
-void AppLayer::addObject(std::unique_ptr<Core::RenderObject> obj)
-{
-	m_Objects.push_back(std::move(obj));
 }
 
 void AppLayer::changeBackgroundColor()
@@ -80,14 +63,4 @@ bool AppLayer::onMouseButtonPressed(Core::MouseButtonPressedEvent& event)
 	changeBackgroundColor();
 
 	return true;
-}
-
-bool AppLayer::onMouseMoved(Core::MouseMovedEvent& event)
-{
-	auto mousePos = event.getMousePosition();
-	for (auto& obj : m_Objects) {
-		obj->updateHover(mousePos);
-	}
-
-	return false;
 }

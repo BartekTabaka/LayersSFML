@@ -58,12 +58,12 @@ void Button::draw(sf::RenderTarget& target, sf::RenderStates states) const
 	if (s_DebugHitboxes) {
 		// Red: visual bounds - rotated rectangle in object space
 		// (uses the current scale, so it grows on hover)
-		drawDebugHitbox(target, m_Sprite.getGlobalBounds(), sf::Color::Red, states);
+		Core::drawDebugHitbox(target, m_Sprite.getGlobalBounds(), sf::Color::Red, states);
 	
 		// Green: actual hitbox (fixed, rotates together with the button)
 		sf::RenderStates hitboxStates = worldStates;
 		hitboxStates.transform *= getBaseTransform();
-		drawDebugHitbox(target, m_Sprite.getGlobalBounds(), sf::Color::Green, hitboxStates);
+		Core::drawDebugHitbox(target, m_Sprite.getGlobalBounds(), sf::Color::Green, hitboxStates);
 	}
 }
 

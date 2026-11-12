@@ -19,6 +19,8 @@ set(CORE_SOURCES
     Source/Core/Asset/AssetContainer.h
     Source/Core/Asset/AssetManager.h
     Source/Core/Asset/AssetManager.cpp
+
+    Source/Core/Render/RenderObject.h
 )
 
 # Library definition    

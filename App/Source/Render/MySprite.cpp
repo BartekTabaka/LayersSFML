@@ -38,5 +38,5 @@ void MySprite::draw(sf::RenderTarget& target, sf::RenderStates states) const
 
 	// Exact (rotated) sprite outline - drawn in object space
 	if (s_DebugHitboxes)
-		drawDebugHitbox(target, m_Sprite.getLocalBounds(), sf::Color::Green, states);
+		Core::drawDebugHitbox(target, m_Sprite.getLocalBounds(), sf::Color::Green, states);
 }

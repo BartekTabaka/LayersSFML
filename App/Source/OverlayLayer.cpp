@@ -61,7 +61,7 @@ bool OverlayLayer::onMouseMoved(Core::MouseMovedEvent& event)
 	return false;
 }
 
-void OverlayLayer::addObject(std::unique_ptr<RenderObject> obj)
+void OverlayLayer::addObject(std::unique_ptr<Core::RenderObject> obj)
 {
 	m_Objects.push_back(std::move(obj));
 }

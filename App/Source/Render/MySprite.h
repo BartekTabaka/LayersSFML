@@ -1,11 +1,11 @@
 ﻿#pragma once
 
-#include "RenderObject.h"
+#include "Core/Render/RenderObject.h"
 
 #include <SFML/Graphics.hpp>
 #include <string_view>
 
-class MySprite : public RenderObject {
+class MySprite : public Core::RenderObject {
 public:
 	MySprite(std::string_view name, const sf::Texture& texture);
 

@@ -13,11 +13,10 @@ set(APP_SOURCES
     Source/VoidLayer.h
     Source/VoidLayer.cpp
 
-    Source/Rendering/RenderObject.h
-    Source/Rendering/Button.h
-    Source/Rendering/Button.cpp
-    Source/Rendering/MySprite.h
-    Source/Rendering/MySprite.cpp
+    Source/Render/Button.h
+    Source/Render/Button.cpp
+    Source/Render/MySprite.h
+    Source/Render/MySprite.cpp
 )
 
 # Add executable (.exe)

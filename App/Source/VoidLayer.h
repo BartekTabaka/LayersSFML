@@ -3,7 +3,6 @@
 #include "Core/Layer.h"
 
 #include "Core/InputEvents.h"
-#include "Rendering/RenderObject.h"
 
 class VoidLayer : public Core::Layer {
 public:

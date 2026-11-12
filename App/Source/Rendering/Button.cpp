@@ -13,7 +13,6 @@ Button::Button(std::string_view name, const sf::Texture& texture, std::function<
 	m_Sprite.setOrigin({ bounds.size.x / 2.f, bounds.size.y / 2.f });
 
 	setScale(m_BaseScale);
-	setRotation(sf::degrees(45));
 }
 
 void Button::updateHover(const sf::Vector2f& mousePos)

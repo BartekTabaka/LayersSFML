@@ -10,6 +10,7 @@ public:
 	MySprite(std::string_view name, const sf::Texture& texture);
 
 	void setColor(sf::Color color);
+	void rotateTowards(const sf::Vector2f& targetPoint);
 
 	bool isHit(const sf::Vector2f& point) const override;
 

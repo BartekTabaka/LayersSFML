@@ -42,7 +42,7 @@ namespace Core
 
     bool Layer::onMouseMoved(MouseMovedEvent& event)
     {
-        auto mousePos = event.getMousePosition();
+        auto mousePos = event.getCurrentMousePosition();
         for (auto& obj : m_Objects) {
             obj->updateHover(mousePos);
         }

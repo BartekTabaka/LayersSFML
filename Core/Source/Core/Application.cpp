@@ -37,6 +37,8 @@ namespace Core {
 
 		float lastTime = s_RuntimeClock.getElapsedTime().asSeconds();
 
+		sf::Vector2f lastMousePos = {};
+
 		while (m_Running) {
 			while (m_Window->isOpen()) {
 				// Event handling
@@ -48,13 +50,15 @@ namespace Core {
 						break;
 					}
 					if (pollEvent->is<sf::Event::MouseButtonPressed>()) {
-						int pressedButton = static_cast<int>(pollEvent->getIf<sf::Event::MouseButtonPressed>()->button);
-						MouseButtonPressedEvent event(pressedButton);
+						const int pressedButton = static_cast<int>(pollEvent->getIf<sf::Event::MouseButtonPressed>()->button);
+						const sf::Vector2f mousePos = getWindow()->getMousePosWindow();
+						MouseButtonPressedEvent event(pressedButton, mousePos);
 						raiseEvent(event);
 					}
 					if (pollEvent->is<sf::Event::MouseMoved>()) {
-						sf::Vector2f mousePos = getWindow()->getMousePosWindow();
-						MouseMovedEvent event(mousePos);
+						const sf::Vector2f mousePos = getWindow()->getMousePosWindow();
+						MouseMovedEvent event(lastMousePos, mousePos);
+						lastMousePos = mousePos;
 						raiseEvent(event);
 					}
 				}
@@ -93,7 +97,7 @@ namespace Core {
 		for (auto& layer : std::views::reverse(m_LayerStack)) {
 			layer->onEvent(event);
 			if (event.handled) {
-				//This log is for debugging purposes
+				// This log is for debugging purposes
 				std::println("[RaiseEvent] Event \"{}\" has been handled by: {}", event.getName(), layer->getName());
 				break;
 			}

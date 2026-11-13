@@ -10,43 +10,65 @@ namespace Core
 	// Mouse Events
 	//
 
-	class MouseMovedEvent : public Event {
+	// Mouse event interface class
+	class MouseEvent : public Event {
 	public:
-		MouseMovedEvent(sf::Vector2f mousePos)
-			: m_MousePos(mousePos) {}
-
-		inline sf::Vector2f getMousePosition() const { return m_MousePos; };
-	
-		std::string toString() const override
-		{
-			return std::format("Mouse moved to - x:{}, y:{}", m_MousePos.x, m_MousePos.y);
-		}
-
-		EVENT_CLASS_TYPE(MouseMoved)
-	private:
+		~MouseEvent() = default;
+	protected:
 		sf::Vector2f m_MousePos;
 	};
 
-	class MouseButtonEvent : public Event {
+	class MouseMovedEvent : public MouseEvent {
 	public:
-		inline int getMouseButton() const { return m_Button; };
-	protected:
-		MouseButtonEvent(int button)
-			: m_Button(button) {}
+		EVENT_CLASS_TYPE(MouseMoved)
 
+		MouseMovedEvent(const sf::Vector2f& fromPos, const sf::Vector2f& toPos)
+		{
+			m_LastPosition = fromPos;
+			m_MousePos = toPos;
+			m_Delta = m_MousePos - m_LastPosition;
+		}
+
+		inline sf::Vector2f getCurrentMousePosition() const { return m_MousePos; };
+		inline sf::Vector2f getLastMousePosition() const { return m_LastPosition; };
+		inline sf::Vector2f getDelta() const { return m_Delta; };
+	
+		std::string toString() const override
+		{
+			return std::format("Mouse moved from x:{}, y:{} - to x:{}, y:{} (Delta - x:{}, y:{})", 
+				m_LastPosition.x, m_LastPosition.y, m_MousePos.x, m_MousePos.y, m_Delta.x, m_Delta.y
+			);
+		}
+	private:
+		sf::Vector2f m_LastPosition;
+		sf::Vector2f m_Delta;
+	};
+	
+	// -- Mouse buttons ------------
+	class MouseButtonEvent : public MouseEvent {
+	public:
+		~MouseButtonEvent() = default;
+
+		inline int getMouseButton() const { return m_Button; };
+		inline sf::Vector2f getMousePosition() const { return m_MousePos; };
+	protected:
 		int m_Button;
 	};
 
 	class MouseButtonPressedEvent : public MouseButtonEvent {
 	public:
-		MouseButtonPressedEvent(int button)
-			: MouseButtonEvent(button) {}
+		EVENT_CLASS_TYPE(MouseButtonPressed)
+
+		MouseButtonPressedEvent(int button, const sf::Vector2f& position)
+		{
+			m_Button = button;
+		}
 
 		std::string toString() const override
 		{
-			return std::format("Mouse button pressed: {}", m_Button);
+			return std::format("Mouse button pressed: {} at x:{}, y:{}", 
+				m_Button, m_MousePos.x, m_MousePos.y
+			);
 		}
-
-		EVENT_CLASS_TYPE(MouseButtonPressed)
 	};
 }

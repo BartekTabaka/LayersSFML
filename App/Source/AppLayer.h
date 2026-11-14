@@ -12,7 +12,7 @@ public:
 private:
 	void changeBackgroundColor();
 private: // Event callbacks
-	bool onMouseButtonPressed(Core::MouseButtonPressedEvent& event) override;
+	bool onMouseButtonPressed(const Core::MouseButtonPressedEvent& event) override;
 private:
 	// Temporary texture, here until I create a resource manager
 	sf::Texture resetButtonTxt;

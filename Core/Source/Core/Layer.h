@@ -4,6 +4,7 @@
 
 #include <memory>
 #include <string>
+#include <string_view>
 #include <utility>
 #include <vector>
 
@@ -36,11 +37,12 @@ namespace Core
 		}
 	private:
 		void queueTransition(std::unique_ptr<Layer> toLayer);
+		std::string generateUniqueObjectName(std::string_view repeatedName);
 	protected:
 		void addObject(std::unique_ptr<RenderObject> obj);
 	protected: // Event callbacks
-		virtual bool onMouseButtonPressed(MouseButtonPressedEvent& event);
-		virtual bool onMouseMoved(MouseMovedEvent& event);
+		virtual bool onMouseButtonPressed(const MouseButtonPressedEvent& event);
+		virtual bool onMouseMoved(const MouseMovedEvent& event);
 	protected:
 		// Name of the layer
 		std::string m_Name;

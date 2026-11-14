@@ -26,6 +26,8 @@ namespace Core
 
 		virtual ~RenderObject() = default;
 
+		virtual std::string getName() const { return m_Name; }
+
 		// -- Transforms ------------
 
 		virtual sf::FloatRect getGlobalBounds() const = 0;
@@ -62,5 +64,7 @@ namespace Core
 
 		std::function<void()> m_OnClick;
 		sf::Vector2f m_BaseScale = { 1.f, 1.f };
+
+		friend class Layer;
 	};
 }

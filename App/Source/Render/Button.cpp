@@ -9,8 +9,8 @@ Button::Button(std::string_view name, const sf::Texture& texture, std::function<
 	m_OnClick = std::move(onClick);
 
 	// Sprite only has an origin (centered). Position/scale/rotation are handled by Button (the instance)
-	auto bounds = m_Sprite.getGlobalBounds();
-	m_Sprite.setOrigin({ bounds.size.x / 2.f, bounds.size.y / 2.f });
+	auto spriteBounds = m_Sprite.getGlobalBounds();
+	m_Sprite.setOrigin({ spriteBounds.size.x / 2.f, spriteBounds.size.y / 2.f });
 
 	setScale(m_BaseScale);
 }

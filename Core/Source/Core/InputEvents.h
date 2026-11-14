@@ -29,9 +29,9 @@ namespace Core
 			m_Delta = m_MousePos - m_LastPosition;
 		}
 
-		inline sf::Vector2f getCurrentMousePosition() const { return m_MousePos; };
-		inline sf::Vector2f getLastMousePosition() const { return m_LastPosition; };
-		inline sf::Vector2f getDelta() const { return m_Delta; };
+		sf::Vector2f getCurrentMousePosition() const { return m_MousePos; };
+		sf::Vector2f getLastMousePosition() const { return m_LastPosition; };
+		sf::Vector2f getDelta() const { return m_Delta; };
 	
 		std::string toString() const override
 		{
@@ -49,8 +49,8 @@ namespace Core
 	public:
 		~MouseButtonEvent() = default;
 
-		inline int getMouseButton() const { return m_Button; };
-		inline sf::Vector2f getMousePosition() const { return m_MousePos; };
+		int getMouseButton() const { return m_Button; };
+		sf::Vector2f getMousePosition() const { return m_MousePos; };
 	protected:
 		int m_Button;
 	};
@@ -62,6 +62,7 @@ namespace Core
 		MouseButtonPressedEvent(int button, const sf::Vector2f& position)
 		{
 			m_Button = button;
+			m_MousePos = position;
 		}
 
 		std::string toString() const override

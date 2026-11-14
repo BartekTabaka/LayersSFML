@@ -12,14 +12,16 @@ AppLayer::AppLayer()
 {
 	m_Name = "AppLayer";
 
+	const sf::Vector2f windowSize = Core::Application::get().getWindow()->getSize();
+
 	// -- Reset button ------------
-	auto resetButton = std::make_unique<Button>("Reset button", resetButtonTxt, []() {
-		std::println("[ACTION]: Reset button clicked!");
+	std::string resetButtonName = "Reset button";
+	auto resetButton = std::make_unique<Button>(resetButtonName, resetButtonTxt, [resetButtonName]() {
+		std::println("[ACTION]: {} clicked!", resetButtonName);
 		std::println("[ACTION]: Changing background color to white");
 		Core::Application::get().s_ClearColor = sf::Color::White;
 		});
-	const sf::Vector2f windowSize = Core::Application::get().getWindow()->getSize();
-	resetButton->setPosition({ windowSize.x / 2, windowSize.y / 2 }); // Button class origin is already centered
+	resetButton->setPosition({ 0.f, 0.f }); // Button class origin is already centered by default
 	addObject(std::move(resetButton));
 }
 
@@ -48,7 +50,7 @@ void AppLayer::changeBackgroundColor()
 // Event Callbacks
 //
 
-bool AppLayer::onMouseButtonPressed(Core::MouseButtonPressedEvent& event)
+bool AppLayer::onMouseButtonPressed(const Core::MouseButtonPressedEvent& event)
 {
 	if (event.getMouseButton() != 0) return false;
 

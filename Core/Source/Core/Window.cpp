@@ -1,6 +1,8 @@
 ﻿#include "Window.h"
 
-#include <print>
+#include "Application.h"
+#include "InputEvents.h"
+#include "WindowEvents.h"
 
 namespace Core 
 {
@@ -34,6 +36,37 @@ namespace Core
 		}
 	}
 	
+	void Window::processEvents()
+	{
+		while (const std::optional pollEvent = m_Window.pollEvent()) {
+			// Window events
+			if (pollEvent->is<sf::Event::Closed>() ||
+				(pollEvent->is<sf::Event::KeyPressed>() && pollEvent->getIf<sf::Event::KeyPressed>()->code == sf::Keyboard::Key::Escape)) {
+				WindowCloseEvent event;
+				Application::get().raiseEvent(event);
+				break;
+			}
+			if (pollEvent->is<sf::Event::Resized>()) {
+				const auto newSize = pollEvent->getIf<sf::Event::Resized>()->size;
+				WindowResizeEvent event(newSize);
+				Application::get().raiseEvent(event);
+			}
+			// Mouse events
+			if (pollEvent->is<sf::Event::MouseButtonPressed>()) {
+				const int pressedButton = static_cast<int>(pollEvent->getIf<sf::Event::MouseButtonPressed>()->button);
+				const sf::Vector2f mousePos = getMousePosWindow();
+				MouseButtonPressedEvent event(pressedButton, mousePos);
+				Application::get().raiseEvent(event);
+			}
+			if (pollEvent->is<sf::Event::MouseMoved>()) {
+				const sf::Vector2f mousePos = getMousePosWindow();
+				MouseMovedEvent event(m_LastMousePos, mousePos);
+				m_LastMousePos = mousePos;
+				Application::get().raiseEvent(event);
+			}
+		}
+	}
+
 	void Window::draw(sf::Drawable& obj)
 	{
 		m_Window.draw(obj);

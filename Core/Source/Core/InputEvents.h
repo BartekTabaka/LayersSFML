@@ -2,6 +2,8 @@
 
 #include "Event.h"
 
+#include <SFML/Graphics.hpp>
+
 #include <format>
 
 namespace Core 
@@ -29,9 +31,9 @@ namespace Core
 			m_Delta = m_MousePos - m_LastPosition;
 		}
 
-		sf::Vector2f getCurrentMousePosition() const { return m_MousePos; };
-		sf::Vector2f getLastMousePosition() const { return m_LastPosition; };
-		sf::Vector2f getDelta() const { return m_Delta; };
+		inline sf::Vector2f getCurrentMousePosition() const { return m_MousePos; };
+		inline sf::Vector2f getLastMousePosition() const { return m_LastPosition; };
+		inline sf::Vector2f getDelta() const { return m_Delta; };
 	
 		std::string toString() const override
 		{
@@ -49,8 +51,8 @@ namespace Core
 	public:
 		~MouseButtonEvent() = default;
 
-		int getMouseButton() const { return m_Button; };
-		sf::Vector2f getMousePosition() const { return m_MousePos; };
+		inline int getMouseButton() const { return m_Button; };
+		inline sf::Vector2f getMousePosition() const { return m_MousePos; };
 	protected:
 		int m_Button;
 	};

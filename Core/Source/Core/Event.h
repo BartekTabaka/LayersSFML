@@ -23,6 +23,7 @@ namespace Core
 
 		virtual ~Event() = default;
 		virtual EventType getEventType() const = 0;
+		bool is(EventType type) const { return getEventType() == type; }
 		// Returns the event's type name (e.g. "MouseMoved").
 		virtual const char* getName() const = 0;
 		// Returns a human-readable description of the event, including additional information (e.g. "Mouse moved to - x:128, y:241"). 

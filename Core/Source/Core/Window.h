@@ -20,6 +20,8 @@ namespace Core {
 		void create();
 		void destroy();
 
+		void processEvents();
+
 		void draw(sf::Drawable& obj);
 
 		bool isOpen() const;
@@ -36,6 +38,8 @@ namespace Core {
 		WindowSpecification m_Specification;
 		sf::ContextSettings m_ContextSettings;
 		sf::RenderWindow m_Window;
+
+		sf::Vector2f m_LastMousePos = {};
 
 		friend class Application;
 	};

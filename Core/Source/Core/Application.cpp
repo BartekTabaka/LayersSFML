@@ -37,38 +37,17 @@ namespace Core {
 
 		float lastTime = s_RuntimeClock.getElapsedTime().asSeconds();
 
-		sf::Vector2f lastMousePos = {};
-
 		while (m_Running) {
 			while (m_Window->isOpen()) {
 				// Event handling
-				while (const std::optional pollEvent = m_Window->pollEvent()) {
-					if (pollEvent->is<sf::Event::Closed>() ||
-						pollEvent->is<sf::Event::KeyPressed>() && pollEvent->getIf<sf::Event::KeyPressed>()->code == sf::Keyboard::Key::Escape) {
-						m_Window->destroy();
-						stop();
-						break;
-					}
-					if (pollEvent->is<sf::Event::MouseButtonPressed>()) {
-						const int pressedButton = static_cast<int>(pollEvent->getIf<sf::Event::MouseButtonPressed>()->button);
-						const sf::Vector2f mousePos = getWindow()->getMousePosWindow();
-						MouseButtonPressedEvent event(pressedButton, mousePos);
-						raiseEvent(event);
-					}
-					if (pollEvent->is<sf::Event::MouseMoved>()) {
-						const sf::Vector2f mousePos = getWindow()->getMousePosWindow();
-						MouseMovedEvent event(lastMousePos, mousePos);
-						lastMousePos = mousePos;
-						raiseEvent(event);
-					}
-				}
+				m_Window->processEvents();
 
 				// DeltaTime
 				float currentTime = s_RuntimeClock.getElapsedTime().asSeconds();
 				float dT = currentTime - lastTime;
 				lastTime = currentTime;
 
-				// Handling Layer transitions before updating and rendering
+				// NOTE: Handling Layer transitions before updating and rendering
 				handlePendingLayerTransitions();
 
 				// Updating layers
@@ -100,6 +79,11 @@ namespace Core {
 				std::println("[RaiseEvent] Event \"{}\" has been handled by: {}", event.getName(), layer->getName());
 				break;
 			}
+		}
+
+		if (event.is(EventType::WindowClose)) {
+			m_Window->destroy();
+			stop();
 		}
 	}
 

@@ -12,6 +12,7 @@ set(CORE_SOURCES
     Source/Core/InputEvents.h
     Source/Core/Window.h
     Source/Core/Window.cpp
+    Source/Core/WindowEvents.h
 
     Source/Core/Asset/AssetIDs.h
     Source/Core/Asset/AssetLoader.h

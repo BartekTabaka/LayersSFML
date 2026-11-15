@@ -33,6 +33,8 @@ if (WIN32)
     set_target_properties(App PROPERTIES 
         WIN32_EXECUTABLE $<CONFIG:RELEASE>
     )
+
+    target_link_libraries(App PRIVATE SFML::Main)
 endif()
 
 # Working directory

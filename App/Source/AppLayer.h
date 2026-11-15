@@ -9,6 +9,8 @@ public:
 	AppLayer();
 
 	void onEvent(Core::Event& event) override;
+
+	void onAttach() override;
 private:
 	void changeBackgroundColor();
 private: // Event callbacks

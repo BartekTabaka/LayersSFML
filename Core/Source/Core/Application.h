@@ -2,7 +2,6 @@
 
 #include <concepts>
 #include <memory>
-#include <print>
 #include <string>
 #include <vector>
 
@@ -44,7 +43,8 @@ namespace Core
 		template<std::derived_from<Layer> TLayer>
 		void pushLayer()
 		{
-			m_LayerStack.push_back(std::make_unique<TLayer>());
+			auto& layer = m_LayerStack.emplace_back(std::make_unique<TLayer>());
+			layer->onAttach();
 		}
 
 		// Get layer from m_LayerStack

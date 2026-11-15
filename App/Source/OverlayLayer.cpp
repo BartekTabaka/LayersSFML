@@ -4,9 +4,21 @@
 #include "Core/Render/Button.h"
 
 OverlayLayer::OverlayLayer()
-	: debugButtonTexture("Assets/Textures/button_blue.png")
 {
 	m_Name = "OverlayLayer";
+}
+
+void OverlayLayer::onEvent(Core::Event& event)
+{
+	Core::EventDispatcher dispatcher(event);
+	dispatcher.dispatch<Core::MouseButtonPressedEvent>([this](Core::MouseButtonPressedEvent& e) { return onMouseButtonPressed(e); });
+	dispatcher.dispatch<Core::MouseMovedEvent>([this](Core::MouseMovedEvent& e) { return onMouseMoved(e); });
+}
+
+void OverlayLayer::onAttach()
+{
+	if (!debugButtonTexture.loadFromFile("Assets/Textures/button_blue.png"))
+		return;
 
 	// -- Show Debug button ------------
 	auto showDebugButton = std::make_unique<Core::Button>("Show debug button", debugButtonTexture, [](Core::Button& self) {
@@ -15,13 +27,6 @@ OverlayLayer::OverlayLayer()
 	showDebugButton->setBaseScale({ 0.4f, 0.4f });
 	showDebugButton->setPosition({ 150.f, 100.f });
 	addObject(std::move(showDebugButton));
-}
-
-void OverlayLayer::onEvent(Core::Event& event)
-{
-	Core::EventDispatcher dispatcher(event);
-	dispatcher.dispatch<Core::MouseButtonPressedEvent>([this](Core::MouseButtonPressedEvent& e) { return onMouseButtonPressed(e); });
-	dispatcher.dispatch<Core::MouseMovedEvent>([this](Core::MouseMovedEvent& e) { return onMouseMoved(e); });
 }
 
 ///////////

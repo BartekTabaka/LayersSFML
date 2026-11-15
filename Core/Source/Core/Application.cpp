@@ -97,7 +97,6 @@ namespace Core {
 		for (auto& layer : std::views::reverse(m_LayerStack)) {
 			layer->onEvent(event);
 			if (event.handled) {
-				// This log is for debugging purposes
 				std::println("[RaiseEvent] Event \"{}\" has been handled by: {}", event.getName(), layer->getName());
 				break;
 			}
@@ -136,7 +135,11 @@ namespace Core {
 			for (auto& layer : m_LayerStack) {
 				std::println("{}", layer->getName());
 				if (layer.get() == transition.from) {
+					transition.from->onDetach();
+
 					layer = std::move(transition.to);
+					layer->onAttach();
+
 					break;
 				}
 			}

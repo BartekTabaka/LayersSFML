@@ -8,9 +8,21 @@
 #include "Core/Render/Button.h"
 
 AppLayer::AppLayer()
-	: resetButtonTxt("Assets/Textures/logo.png")
 {
 	m_Name = "AppLayer";
+}
+
+void AppLayer::onEvent(Core::Event& event)
+{
+	Core::EventDispatcher dispatcher(event);
+	dispatcher.dispatch<Core::MouseButtonPressedEvent>([this](Core::MouseButtonPressedEvent& e) { return onMouseButtonPressed(e); });
+	dispatcher.dispatch<Core::MouseMovedEvent>([this](Core::MouseMovedEvent& e) { return onMouseMoved(e); });
+}
+
+void AppLayer::onAttach()
+{
+	if (!resetButtonTxt.loadFromFile("Assets/Textures/logo.png")) 
+		return;
 
 	const sf::Vector2f windowSize = Core::Application::get().getWindow()->getSize();
 
@@ -22,13 +34,6 @@ AppLayer::AppLayer()
 	});
 	resetButton->setPosition(windowSize / 2.f); // Button class origin is already centered by default
 	addObject(std::move(resetButton));
-}
-
-void AppLayer::onEvent(Core::Event& event)
-{
-	Core::EventDispatcher dispatcher(event);
-	dispatcher.dispatch<Core::MouseButtonPressedEvent>([this](Core::MouseButtonPressedEvent& e) { return onMouseButtonPressed(e); });
-	dispatcher.dispatch<Core::MouseMovedEvent>([this](Core::MouseMovedEvent& e) { return onMouseMoved(e); });
 }
 
 void AppLayer::changeBackgroundColor()

@@ -9,6 +9,8 @@ public:
 	OverlayLayer();
 
 	void onEvent(Core::Event& event) override;
+
+	void onAttach() override;
 private:
 	// Temporary texture, here until I create a resource manager
 	sf::Texture debugButtonTexture;

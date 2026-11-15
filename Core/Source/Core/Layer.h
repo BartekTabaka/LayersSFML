@@ -2,6 +2,7 @@
 
 #include <SFML/Graphics.hpp>
 
+#include <format>
 #include <memory>
 #include <string>
 #include <string_view>
@@ -22,6 +23,9 @@ namespace Core
 
 		virtual void onUpdate(float ts);
 		virtual void onRender();
+
+		virtual void onAttach() {}
+		virtual void onDetach() {}
 
 		template<std::derived_from<Layer> T, typename... Args>
 		void transitionTo(Args&&... args)

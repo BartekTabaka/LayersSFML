@@ -9,4 +9,7 @@ public:
 	OverlayLayer();
 
 	void onEvent(Core::Event& event) override;
+private:
+	// Temporary texture, here until I create a resource manager
+	sf::Texture debugButtonTexture;
 };

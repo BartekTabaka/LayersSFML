@@ -21,6 +21,10 @@ set(CORE_SOURCES
     Source/Core/Asset/AssetManager.cpp
 
     Source/Core/Render/RenderObject.h
+    Source/Core/Render/Button.h
+    Source/Core/Render/Button.cpp
+    Source/Core/Render/MySprite.h
+    Source/Core/Render/MySprite.cpp
 )
 
 # Library definition    

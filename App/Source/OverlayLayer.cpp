@@ -1,7 +1,7 @@
 ﻿#include "OverlayLayer.h"
 
 #include "Core/InputEvents.h"
-#include "Render/Button.h"
+#include "Core/Render/Button.h"
 
 OverlayLayer::OverlayLayer()
 	: debugButtonTexture("Assets/Textures/button_blue.png")
@@ -9,7 +9,7 @@ OverlayLayer::OverlayLayer()
 	m_Name = "OverlayLayer";
 
 	// -- Show Debug button ------------
-	auto showDebugButton = std::make_unique<Button>("Show debug button", debugButtonTexture, [](Button& self) {
+	auto showDebugButton = std::make_unique<Core::Button>("Show debug button", debugButtonTexture, [](Core::Button& self) {
 		self.s_DebugHitboxes = !self.s_DebugHitboxes;
 	});
 	showDebugButton->setBaseScale({ 0.4f, 0.4f });

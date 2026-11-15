@@ -5,7 +5,7 @@
 
 #include "Core/Application.h"
 #include "Core/InputEvents.h"
-#include "Render/Button.h"
+#include "Core/Render/Button.h"
 
 AppLayer::AppLayer()
 	: resetButtonTxt("Assets/Textures/logo.png")
@@ -15,7 +15,7 @@ AppLayer::AppLayer()
 	const sf::Vector2f windowSize = Core::Application::get().getWindow()->getSize();
 
 	// -- Reset button ------------
-	auto resetButton = std::make_unique<Button>("Reset button", resetButtonTxt, [](Button& self) {
+	auto resetButton = std::make_unique<Core::Button>("Reset button", resetButtonTxt, [](Core::Button& self) {
 		std::println("[ACTION]: {} clicked!", self.getName());
 		std::println("[ACTION]: Changing background color to white");
 		Core::Application::get().s_ClearColor = sf::Color::White;
@@ -53,7 +53,7 @@ bool AppLayer::onMouseButtonPressed(const Core::MouseButtonPressedEvent& event)
 {
 	if (event.getMouseButton() != 0) return false;
 
-	auto mousePos = Core::Application::get().getWindow()->getMousePosWindow();
+	const auto mousePos = event.getMousePosition();
 	for (auto obj = m_Objects.rbegin(); obj != m_Objects.rend(); ++obj) {
 		if ((*obj)->isHit(mousePos)) {
 			(*obj)->onClick();

@@ -2,7 +2,6 @@
 
 #include <SFML/Graphics.hpp>
 
-#include <functional>
 #include <string>
 
 namespace Core
@@ -47,11 +46,7 @@ namespace Core
 		// Independent of the current hover scale
 		virtual bool isHit(const sf::Vector2f& point) const = 0;
 
-		// Base scale set externally
-		virtual void setBaseScale(const sf::Vector2f newScale)
-		{
-			m_BaseScale = newScale;
-		}
+		virtual void setBaseScale(const sf::Vector2f newScale) { m_BaseScale = newScale; }
 		virtual sf::Vector2f getBaseScale() const { return m_BaseScale; }
 
 		// -- Events ------------
@@ -62,7 +57,6 @@ namespace Core
 		// Name of the object
 		std::string m_Name;
 
-		std::function<void()> m_OnClick;
 		sf::Vector2f m_BaseScale = { 1.f, 1.f };
 
 		friend class Layer;

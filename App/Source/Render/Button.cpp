@@ -1,15 +1,16 @@
 ﻿#include "Button.h"
 
 #include <print>
+#include <utility>
 
-Button::Button(std::string_view name, const sf::Texture& texture, std::function<void()> onClick)
+Button::Button(std::string_view name, const sf::Texture& texture, ClickCallback onClick)
 	: MySprite(name, texture)
 {
 	m_BaseScale = { 0.7f, 0.7f };
-	m_OnClick = std::move(onClick);
+	m_ClickCallback = std::move(onClick);
 
 	// Sprite only has an origin (centered). Position/scale/rotation are handled by Button (the instance)
-	auto spriteBounds = m_Sprite.getGlobalBounds();
+	auto spriteBounds = m_Sprite.getLocalBounds();
 	m_Sprite.setOrigin({ spriteBounds.size.x / 2.f, spriteBounds.size.y / 2.f });
 
 	setScale(m_BaseScale);
@@ -27,7 +28,8 @@ void Button::updateHover(const sf::Vector2f& mousePos)
 
 void Button::onClick()
 {
-	if (m_OnClick) m_OnClick();
+	if (m_ClickCallback) 
+		m_ClickCallback(*this);
 }
 
 bool Button::isHit(const sf::Vector2f& point) const

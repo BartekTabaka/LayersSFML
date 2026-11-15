@@ -8,8 +8,8 @@
 
 class Button : public MySprite {
 public:
-public:
-	Button(std::string_view name, const sf::Texture& texture, std::function<void()> onClick);
+	using ClickCallback = std::function<void(Button&)>;
+	Button(std::string_view name, const sf::Texture& texture, ClickCallback onClick);
 
 	void updateHover(const sf::Vector2f& mousePos) override;
 	void onClick() override;
@@ -25,5 +25,7 @@ private:
 	void onHover();
 	void onDehover();
 private:
+	ClickCallback m_ClickCallback;
+
 	const float m_HoverFactor = 1.2f;
 };

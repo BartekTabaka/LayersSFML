@@ -65,7 +65,7 @@ namespace Core
 
     bool Layer::onMouseButtonPressed(const MouseButtonPressedEvent& event)
     {
-        auto mousePos = Application::get().getWindow()->getMousePosWindow();
+        const auto mousePos = event.getMousePosition();
         for (auto obj = m_Objects.rbegin(); obj != m_Objects.rend(); ++obj) {
             if ((*obj)->isHit(mousePos)) {
                 (*obj)->onClick();
@@ -78,7 +78,7 @@ namespace Core
 
     bool Layer::onMouseMoved(const MouseMovedEvent& event)
     {
-        auto mousePos = event.getCurrentMousePosition();
+        const auto mousePos = event.getCurrentMousePosition();
         for (auto& obj : m_Objects) {
             obj->updateHover(mousePos);
         }

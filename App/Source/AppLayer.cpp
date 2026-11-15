@@ -15,13 +15,12 @@ AppLayer::AppLayer()
 	const sf::Vector2f windowSize = Core::Application::get().getWindow()->getSize();
 
 	// -- Reset button ------------
-	std::string resetButtonName = "Reset button";
-	auto resetButton = std::make_unique<Button>(resetButtonName, resetButtonTxt, [resetButtonName]() {
-		std::println("[ACTION]: {} clicked!", resetButtonName);
+	auto resetButton = std::make_unique<Button>("Reset button", resetButtonTxt, [](Button& self) {
+		std::println("[ACTION]: {} clicked!", self.getName());
 		std::println("[ACTION]: Changing background color to white");
 		Core::Application::get().s_ClearColor = sf::Color::White;
-		});
-	resetButton->setPosition({ 0.f, 0.f }); // Button class origin is already centered by default
+	});
+	resetButton->setPosition(windowSize / 2.f); // Button class origin is already centered by default
 	addObject(std::move(resetButton));
 }
 

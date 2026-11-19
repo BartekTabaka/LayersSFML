@@ -38,7 +38,40 @@ namespace Core
 	
 	void Window::processEvents()
 	{
+		// NOTE: Keyboard events are processed before window events so that pressing Escape
+		// is registered as a KeyPressedEvent before triggering WindowCloseEvent.
+
 		while (const std::optional pollEvent = m_Window.pollEvent()) {
+			// Keyboard events
+			if (pollEvent->is<sf::Event::KeyPressed>()) {
+				const auto key = pollEvent->getIf<sf::Event::KeyPressed>()->code;
+				KeyPressedEvent event(key);
+				Application::get().raiseEvent(event);
+			}
+			if (pollEvent->is<sf::Event::KeyReleased>()) {
+				const auto key = pollEvent->getIf<sf::Event::KeyReleased>()->code;
+				KeyReleasedEvent event(key);
+				Application::get().raiseEvent(event);
+			}
+			// Mouse events
+			if (pollEvent->is<sf::Event::MouseButtonPressed>()) {
+				const int pressedButton = static_cast<int>(pollEvent->getIf<sf::Event::MouseButtonPressed>()->button);
+				const sf::Vector2f mousePos = getMousePosWindow();
+				MouseButtonPressedEvent event(pressedButton, mousePos);
+				Application::get().raiseEvent(event);
+			}
+			if (pollEvent->is<sf::Event::MouseButtonReleased>()) {
+				const int releasedButton = static_cast<int>(pollEvent->getIf<sf::Event::MouseButtonReleased>()->button);
+				const sf::Vector2f mousePos = getMousePosWindow();
+				MouseButtonReleasedEvent event(releasedButton, mousePos);
+				Application::get().raiseEvent(event);
+			}
+			if (pollEvent->is<sf::Event::MouseMoved>()) {
+				const sf::Vector2f mousePos = getMousePosWindow();
+				MouseMovedEvent event(m_LastMousePos, mousePos);
+				m_LastMousePos = mousePos;
+				Application::get().raiseEvent(event);
+			}
 			// Window events
 			if (pollEvent->is<sf::Event::Closed>() ||
 				(pollEvent->is<sf::Event::KeyPressed>() && pollEvent->getIf<sf::Event::KeyPressed>()->code == sf::Keyboard::Key::Escape)) {
@@ -49,19 +82,6 @@ namespace Core
 			if (pollEvent->is<sf::Event::Resized>()) {
 				const auto newSize = pollEvent->getIf<sf::Event::Resized>()->size;
 				WindowResizeEvent event(newSize);
-				Application::get().raiseEvent(event);
-			}
-			// Mouse events
-			if (pollEvent->is<sf::Event::MouseButtonPressed>()) {
-				const int pressedButton = static_cast<int>(pollEvent->getIf<sf::Event::MouseButtonPressed>()->button);
-				const sf::Vector2f mousePos = getMousePosWindow();
-				MouseButtonPressedEvent event(pressedButton, mousePos);
-				Application::get().raiseEvent(event);
-			}
-			if (pollEvent->is<sf::Event::MouseMoved>()) {
-				const sf::Vector2f mousePos = getMousePosWindow();
-				MouseMovedEvent event(m_LastMousePos, mousePos);
-				m_LastMousePos = mousePos;
 				Application::get().raiseEvent(event);
 			}
 		}

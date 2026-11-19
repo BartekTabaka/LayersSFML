@@ -9,10 +9,55 @@
 namespace Core 
 {
 	//
+	// Keyboard Events
+	//
+
+	class KeyEvent : public Event {
+	public:
+		inline sf::Keyboard::Key getKeyCode() const { return m_KeyCode; }
+	protected:
+		explicit KeyEvent(sf::Keyboard::Key keycode)
+			: m_KeyCode(keycode)
+		{
+		}
+
+		sf::Keyboard::Key m_KeyCode;
+	};
+
+	class KeyPressedEvent : public KeyEvent {
+	public:
+		EVENT_CLASS_TYPE(KeyPressed)
+
+		KeyPressedEvent(sf::Keyboard::Key keycode)
+			: KeyEvent(keycode)
+		{
+		}
+
+		std::string toString() const override
+		{
+			return std::format("Key pressed (code): {}", (int)m_KeyCode);
+		}
+	};
+
+	class KeyReleasedEvent : public KeyEvent {
+	public:
+		EVENT_CLASS_TYPE(KeyReleased)
+
+		KeyReleasedEvent(sf::Keyboard::Key keycode)
+			: KeyEvent(keycode)
+		{
+		}
+
+		std::string toString() const override
+		{
+			return std::format("Key released (code): {}", (int)m_KeyCode);
+		}
+	};
+
+	//
 	// Mouse Events
 	//
 
-	// Mouse event interface class
 	class MouseEvent : public Event {
 	public:
 		~MouseEvent() = default;
@@ -70,6 +115,24 @@ namespace Core
 		std::string toString() const override
 		{
 			return std::format("Mouse button pressed: {} at x:{}, y:{}", 
+				m_Button, m_MousePos.x, m_MousePos.y
+			);
+		}
+	};
+
+	class MouseButtonReleasedEvent : public MouseButtonEvent {
+	public:
+		EVENT_CLASS_TYPE(MouseButtonPressed)
+
+		MouseButtonReleasedEvent(int button, const sf::Vector2f& position)
+		{
+			m_Button = button;
+			m_MousePos = position;
+		}
+
+		std::string toString() const override
+		{
+			return std::format("Mouse button released: {} at x:{}, y:{}", 
 				m_Button, m_MousePos.x, m_MousePos.y
 			);
 		}

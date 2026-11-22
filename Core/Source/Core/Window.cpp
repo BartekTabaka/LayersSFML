@@ -55,13 +55,13 @@ namespace Core
 			}
 			// Mouse events
 			if (pollEvent->is<sf::Event::MouseButtonPressed>()) {
-				const int pressedButton = static_cast<int>(pollEvent->getIf<sf::Event::MouseButtonPressed>()->button);
+				const auto pressedButton = static_cast<int>(pollEvent->getIf<sf::Event::MouseButtonPressed>()->button);
 				const sf::Vector2f mousePos = getMousePosWindow();
 				MouseButtonPressedEvent event(pressedButton, mousePos);
 				Application::get().raiseEvent(event);
 			}
 			if (pollEvent->is<sf::Event::MouseButtonReleased>()) {
-				const int releasedButton = static_cast<int>(pollEvent->getIf<sf::Event::MouseButtonReleased>()->button);
+				const auto releasedButton = static_cast<int>(pollEvent->getIf<sf::Event::MouseButtonReleased>()->button);
 				const sf::Vector2f mousePos = getMousePosWindow();
 				MouseButtonReleasedEvent event(releasedButton, mousePos);
 				Application::get().raiseEvent(event);

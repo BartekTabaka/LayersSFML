@@ -1,6 +1,7 @@
 ﻿#include "Layer.h"
 
 #include <algorithm>
+#include <ranges>
 
 #include "Application.h"
 
@@ -66,9 +67,9 @@ namespace Core
     bool Layer::onMouseButtonPressed(const MouseButtonPressedEvent& event)
     {
         const auto mousePos = event.getMousePosition();
-        for (auto obj = m_Objects.rbegin(); obj != m_Objects.rend(); ++obj) {
-            if ((*obj)->isHit(mousePos)) {
-                (*obj)->onClick();
+        for (auto& Object : std::views::reverse(m_Objects)) {
+            if (Object->isHit(mousePos)) {
+                Object->onClick();
                 return true;
             }
         }

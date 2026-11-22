@@ -2,6 +2,7 @@
 
 #include <random>
 #include <print>
+#include <ranges>
 
 #include "Core/Application.h"
 #include "Core/InputEvents.h"
@@ -42,9 +43,9 @@ void AppLayer::changeBackgroundColor()
 	std::mt19937 generator(randomDevice());
 	std::uniform_int_distribution randomDist(0, 256);
 
-	uint8_t r = static_cast<uint8_t>(randomDist(generator));
-	uint8_t g = static_cast<uint8_t>(randomDist(generator));
-	uint8_t b = static_cast<uint8_t>(randomDist(generator));
+	const auto r = static_cast<uint8_t>(randomDist(generator));
+	const auto g = static_cast<uint8_t>(randomDist(generator));
+	const auto b = static_cast<uint8_t>(randomDist(generator));
 	sf::Color newColor = { r, g, b, 255 };
 
 	Core::Application::get().s_ClearColor = newColor;
@@ -59,9 +60,9 @@ bool AppLayer::onMouseButtonPressed(const Core::MouseButtonPressedEvent& event)
 	if (event.getMouseButton() != 0) return false;
 
 	const auto mousePos = event.getMousePosition();
-	for (auto obj = m_Objects.rbegin(); obj != m_Objects.rend(); ++obj) {
-		if ((*obj)->isHit(mousePos)) {
-			(*obj)->onClick();
+	for (auto& Object : std::views::reverse(m_Objects)) {
+		if (Object->isHit(mousePos)) {
+			Object->onClick();
 			return true;
 		}
 	}

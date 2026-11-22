@@ -122,7 +122,7 @@ namespace Core
 
 	class MouseButtonReleasedEvent : public MouseButtonEvent {
 	public:
-		EVENT_CLASS_TYPE(MouseButtonPressed)
+		EVENT_CLASS_TYPE(MouseButtonReleased)
 
 		MouseButtonReleasedEvent(int button, const sf::Vector2f& position)
 		{
